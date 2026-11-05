@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#091322">
+  <title>Bonjour Resto' · Chấm công</title>
+  <script src="/models/face-api.min.js" onerror="var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js';document.head.appendChild(s)"></script>
+  <style>
+    :root { --bg: #091322; --card-bg: rgba(22, 38, 62, 0.9); --card-border: rgba(255, 255, 255, 0.12); --emerald: #10b981; --blue: #2563eb; --rose: #f43f5e; --text-dim: #94a3b8; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg) radial-gradient(circle at 50% 0%, #1e3a5f 0%, #091322 75%); color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 14px; }
+    .app-box { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px; }
+    
+    /* Header thương hiệu mới */
+    .app-header { text-align: center; margin-bottom: 2px; }
+    .app-title { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; color: #38bdf8; text-transform: uppercase; }
+
+    .clock-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 10px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .time { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .date { font-size: 13px; color: var(--text-dim); text-transform: capitalize; }
+    
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 4px; }
+    select { width: 100%; height: 46px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(11, 23, 39, 0.85); color: #fff; padding: 0 14px; font-size: 15px; outline: none; }
+    .emp-row { display: flex; align-items: center; gap: 10px; }
+    .emp-avatar { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); flex-shrink: 0; }
+    
+    /* Làm nổi bật nút Phiếu quản lý cá nhân thành dạng Banner/Button lớn */
+    .btn-stats-banner { width: 100%; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: 1px solid #38bdf8; border-radius: 14px; padding: 12px 14px; color: #fff; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: transform 0.1s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+    .btn-stats-banner:active { transform: scale(0.98); }
+
+    .scanner { width: 100%; aspect-ratio: 4 / 3; border-radius: 16px; border: 2px dashed rgba(255, 255, 255, 0.25); background: rgba(5, 12, 22, 0.6); position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+    .scanner.active { border-style: solid; border-color: var(--emerald); }
+    .scanner img, .scanner canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .corner { position: absolute; width: 16px; height: 16px; border-color: #38bdf8; border-width: 3px; pointer-events: none; z-index: 2; }
+    .tl { top: 8px; left: 8px; border-right: 0; border-bottom: 0; } .tr { top: 8px; right: 8px; border-left: 0; border-bottom: 0; } .bl { bottom: 8px; left: 8px; border-right: 0; border-top: 0; } .br { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
+    
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+    button.btn { height: 48px; border-radius: 12px; border: 0; font-size: 15px; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    button.btn:active { transform: scale(0.98); } button.btn:disabled { opacity: 0.45; }
+    .b-in { background: linear-gradient(135deg, #10b981 0%, #047857 100%); } 
+    .b-out { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); }
+    
+    .stats-box { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 12px; }
+    .stat-item { display: flex; flex-direction: column; } .stat-lbl { color: var(--text-dim); font-size: 11px; } .stat-val { font-weight: 700; font-size: 14px; color: #a7f3d0; }
+    
+    .toast { padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; display: none; }
+    .t-ok { background: rgba(16, 185, 129, 0.2); border: 1px solid var(--emerald); color: #a7f3d0; }
+    .t-er { background: rgba(244, 63, 94, 0.2); border: 1px solid var(--rose); color: #fecdd3; }
+    .t-wt { background: rgba(37, 99, 235, 0.2); border: 1px solid var(--blue); color: #bfdbfe; }
+    .status-text { font-size: 11px; color: var(--text-dim); text-align: center; }
+    
+    /* Modal */
+    .modal { position: fixed; inset: 0; background: rgba(2,6,23,0.85); backdrop-filter: blur(4px); z-index: 50; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .modal-content { background: #16263e; border: 1px solid rgba(255,255,255,0.15); width: 100%; max-width: 380px; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+    /* ===== v5.8: giao diện chuyên nghiệp ===== */
+    body { padding: max(14px, env(safe-area-inset-top)) 14px calc(20px + env(safe-area-inset-bottom)); }
+    .app-header { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .app-logo { width: 42px; height: 42px; filter: drop-shadow(0 4px 10px rgba(37,99,235,.45)); }
+    .app-title { font-size: 17px; letter-spacing: .6px; color: #e0f2fe; text-align: left; } .app-sub { font-size: 11px; color: var(--text-dim); letter-spacing: .4px; }
+    .clock-card { background: linear-gradient(135deg, rgba(37,99,235,.38), rgba(15,39,66,.92)); padding: 14px; }
+    .time { font-size: 46px; letter-spacing: 1px; line-height: 1.1; }
+    .card { backdrop-filter: blur(10px); } label { text-transform: uppercase; letter-spacing: .6px; font-size: 11px; }
+    select { height: 52px; font-size: 16px; }
+    .scanner { aspect-ratio: 1 / 1; max-height: 300px; border-radius: 24px; }
+    .scanner::after { content: ""; position: absolute; left: 14%; right: 14%; top: 8%; bottom: 8%; border: 2px solid rgba(56,189,248,.55); border-radius: 50% / 46%; pointer-events: none; z-index: 2; }
+    .scanner.active::after { border-color: #10b981; box-shadow: 0 0 22px rgba(16,185,129,.45); }
+    .scanner.scanning::before { content: ""; position: absolute; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, #38bdf8, transparent); animation: sweep 1.2s ease-in-out infinite; z-index: 3; }
+    @keyframes sweep { 0% { top: 8%; } 50% { top: 90%; } 100% { top: 8%; } }
+    button.btn { height: 58px; font-size: 16px; letter-spacing: .5px; border-radius: 16px; }
+    .toast { text-align: center; line-height: 1.4; } .status-text { padding-bottom: 4px; }
+    .flex { display: flex; } .items-center { align-items: center; } .justify-between { justify-content: space-between; } .gap-2 { gap: 8px; }
+    .space-y-2 > * + * { margin-top: 8px; } .w-full { width: 100%; } .p-2 { padding: 10px; } .px-2 { padding: 0 8px; } .pb-2 { padding-bottom: 8px; }
+    .rounded-lg { border-radius: 10px; } .rounded-xl { border-radius: 12px; } .bg-white\/5 { background: rgba(255,255,255,.06); } .border-b { border-bottom: 1px solid rgba(255,255,255,.1); }
+    .font-bold { font-weight: 700; } .text-xs { font-size: 13px; } .text-sm { font-size: 15px; } .text-lg { font-size: 18px; } .text-sky-400 { color: #38bdf8; } .text-slate-200 { color: #e2e8f0; } .text-slate-400 { color: #94a3b8; }
+    .text-amber-400 { color: #fbbf24; } .text-emerald-400 { color: #34d399; } .text-rose-400 { color: #fb7185; }
+    .bg-blue-600 { background: #2563eb; color: #fff; border: 0; } .py-2\.5 { padding: 13px 0; }
+.rq{width:100%;height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(11,23,39,.85);color:#fff;padding:0 12px;font-size:16px;margin:4px 0 8px;outline:none}.bq{background:#2563eb;color:#fff;width:100%;border:0}
+  </style>
+</head>
+<body>
+  <div class="app-box">
+    <!-- Tiêu đề yêu cầu thêm -->
+    <div class="app-header">
+      <svg class="app-logo" viewBox="0 0 40 40" aria-label="Bonjour Resto"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient></defs><rect width="40" height="40" rx="10" fill="url(#lg)"/><circle cx="20" cy="20" r="12" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/><path d="M14.5 12h6.2a4.1 4.1 0 0 1 0 8.2H14.5zm0 8.2h7a4.4 4.4 0 0 1 0 8.8h-7z" fill="#fff"/><circle cx="29.5" cy="11" r="2.4" fill="#34d399"/></svg>
+      <div><div class="app-title">Bonjour Resto'</div><div id="appVersion" class="app-sub">Chấm công khuôn mặt • Đang tải phiên bản</div></div>
+    </div>
+
+    <div class="clock-card">
+      <div class="time" id="clock">00:00:00</div>
+      <div class="date" id="date">Đang cập nhật...</div>
+    </div>
+
+    <div class="card">
+      <div>
+        <label>Chọn tên nhân viên</label>
+        <div class="emp-row">
+          <img id="empAvatar" class="emp-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E" alt="Avatar">
+          <select id="emp" onchange="loadData()"><option value="">Đang nạp...</option></select>
+        </div>
+      </div>
+      <div>
+        <label>Chi nhánh chấm công</label>
+        <select id="branch"><option value="">Chọn nhân sự trước</option></select>
+      </div>
+
+      <!-- Thông tin ca làm việc hôm nay & Trạng thái chấm công (kèm màu sắc phân biệt) -->
+      <div id="shiftInfoBox" style="background:rgba(15, 23, 42, 0.7);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;">
+            <span style="font-size:15px;">⏰</span>
+            <span style="color:var(--text-dim);">Ca hôm nay:</span>
+            <strong id="shiftNameTime" style="color:#38bdf8;">Đang nạp...</strong>
+          </div>
+          <span id="shiftStatusBadge" style="padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:0.3px;background:rgba(255,255,255,0.08);color:#94a3b8;border:1px solid rgba(255,255,255,0.15);">Chưa vào ca</span>
+        </div>
+        <!-- Chú giải màu sắc trạng thái -->
+        <div style="display:flex;flex-wrap:wrap;gap:4px 8px;font-size:10px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);color:#94a3b8;justify-content:space-between;">
+          <span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;"></span>Đúng giờ</span>
+          <span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:50%;background:#f43f5e;display:inline-block;"></span>Trễ giờ</span>
+          <span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>Quên chấm công</span>
+          <span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:50%;background:#38bdf8;display:inline-block;"></span>Chờ duyệt</span>
+          <span style="display:inline-flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:50%;background:#a855f7;display:inline-block;"></span>Đã xin nghỉ off</span>
+        </div>
+      </div>
+
+      <!-- Hiển thị giờ Vào/Ra và Tổng thời gian làm việc -->
+      <div class="stats-box">
+        <div class="stat-item"><span class="stat-lbl">Vào ca lúc:</span><span class="stat-val" id="inTimeDisplay">--:--</span></div>
+        <div class="stat-item"><span class="stat-lbl">Ra ca lúc:</span><span class="stat-val" id="outTimeDisplay">--:--</span></div>
+        <div class="stat-item" style="grid-column: span 2; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 6px; margin-top: 2px;">
+          <span class="stat-lbl">Tổng thời gian làm việc trong ngày:</span>
+          <span class="stat-val" id="totalHoursDisplay" style="color: #38bdf8;">0.0 giờ</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Chụp ảnh khuôn mặt chấm công</label>
+        <div class="scanner" id="scanBox" onclick="document.getElementById('cam').click()">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div id="guide" style="text-align:center;color:var(--text-dim);z-index:2;">
+            <div style="font-size:30px;">📷</div>
+            <div style="font-size:13px;font-weight:600;color:#e2e8f0;margin-top:2px;">Chạm để quét mặt</div>
+            <div style="font-size:11px;color:#64748b;margin-top:2px;" id="aiBadge">Đang nạp AI...</div>
+          </div>
+          <img id="prev" alt="" style="display:none;">
+          <canvas id="overlay" style="display:none;z-index:2;"></canvas>
+        </div>
+        <input id="cam" type="file" accept="image/*" capture="user" hidden>
+      </div>
+
+      <div class="btn-grid">
+        <button type="button" class="btn b-in" id="bIn" onclick="submit('in')">VÀO CA</button>
+        <button type="button" class="btn b-out" id="bOut" onclick="submit('out')">RA CA</button>
+      </div>
+      <div>
+        <button type="button" class="btn-stats-banner" onclick="openStatsModal()">
+          <div class="flex items-center gap-2">
+            <span style="font-size:18px;">📋</span>
+            <div style="text-align:left;">
+              <div style="font-weight:700;font-size:13px;color:#e0f2fe;">Phiếu Quản Lý Cá Nhân</div>
+              <div style="font-size:10px;color:#bae6fd;">Xem tổng hợp ca, đi trễ, tăng ca, phạt</div>
+            </div>
+          </div>
+          <span style="font-size:16px;font-weight:bold;color:#7dd3fc;">➔</span>
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn-stats-banner" style="background:linear-gradient(135deg,#0f766e 0%,#115e59 100%);border-color:#2dd4bf" onclick="openAdvanceModal()">
+          <div class="flex items-center gap-2"><span style="font-size:18px;">💸</span>
+            <div style="text-align:left;"><div style="font-weight:700;font-size:13px;color:#ccfbf1;">Yêu cầu ứng lương</div><div style="font-size:11px;color:#99f6e4;">Tối đa 3 lần/tháng, tổng không quá 50% lương ước tính</div></div></div>
+          <span style="font-size:18px;color:#fff;">›</span>
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn-stats-banner" style="background:linear-gradient(135deg,#d97706 0%,#b45309 100%);border-color:#fbbf24" onclick="openReqModal()">
+          <div class="flex items-center gap-2"><span style="font-size:18px;">📝</span>
+            <div style="text-align:left;"><div style="font-weight:700;font-size:13px;color:#fffbeb;">Quên chấm công? Gửi yêu cầu bổ sung</div><div style="font-size:11px;color:#fde68a;">Quản lý sẽ duyệt và ghi công cho bạn</div></div></div>
+          <span style="font-size:18px;color:#fff;">›</span>
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn-stats-banner" style="background:linear-gradient(135deg,#6366f1 0%,#4338ca 100%);border-color:#a5b4fc" onclick="openMyScheduleModal()">
+          <div class="flex items-center gap-2"><span style="font-size:18px;">📆</span>
+            <div style="text-align:left;"><div style="font-weight:700;font-size:13px;color:#e0e7ff;">Xem Lịch Làm Việc Của Tôi</div><div style="font-size:11px;color:#c7d2fe;">Lịch ca cá nhân tuần này & tuần tới</div></div></div>
+          <span style="font-size:18px;color:#fff;">›</span>
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn-stats-banner" style="background:linear-gradient(135deg,#4f46e5 0%,#3730a3 100%);border-color:#818cf8" onclick="openAvailabilityModal()">
+          <div class="flex items-center gap-2"><span style="font-size:18px;">📅</span>
+            <div style="text-align:left;"><div style="font-weight:700;font-size:13px;color:#e0e7ff;">Đăng ký ca làm & ngày nghỉ (2 tuần tới)</div><div style="font-size:11px;color:#c7d2fe;">Báo ca rảnh / ngày xin nghỉ để quản lý xếp lịch</div></div></div>
+          <span style="font-size:18px;color:#fff;">›</span>
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn-stats-banner" style="background:linear-gradient(135deg,#0d9488 0%,#0f766e 100%);border-color:#2dd4bf" onclick="openPassModal()">
+          <div class="flex items-center gap-2"><span style="font-size:18px;">🔐</span>
+            <div style="text-align:left;"><div style="font-weight:700;font-size:13px;color:#ccfbf1;">Đổi mật khẩu / Quên mật khẩu?</div><div style="font-size:11px;color:#99f6e4;">Đổi mã PIN cá nhân hoặc quét mặt reset 0000</div></div></div>
+          <span style="font-size:18px;color:#fff;">›</span>
+        </button>
+      </div>
+<div class="toast" id="toast"></div>
+      <div class="status-text" id="statusMsg">Sẵn sàng chấm công</div>
+    </div>
+  </div>
+
+  <!-- MODAL PHIẾU QUẢN LÝ CÁ NHÂN (Bảo mật tuyệt đối, không hiện lương) -->
+  <div class="modal" id="reqModal">
+    <div class="modal-content">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="font-bold text-sm text-amber-400">📝 Yêu cầu bổ sung chấm công</h3>
+        <button onclick="closeReqModal()" class="text-slate-400 font-bold text-lg px-2">✕</button>
+      </div>
+      <div class="space-y-2 text-xs text-slate-200" style="margin-top:10px">
+        <label>Ngày quên chấm công</label><input id="rqDate" type="date" class="rq">
+        <label>Giờ vào ca</label><input id="rqIn" type="time" class="rq">
+        <label>Giờ ra ca (nếu có)</label><input id="rqOut" type="time" class="rq">
+        <label>Lý do</label><input id="rqWhy" type="text" maxlength="200" placeholder="VD: hết pin, quên điện thoại..." class="rq">
+        <button type="button" class="btn bq" onclick="sendReq()">GỬI YÊU CẦU</button>
+        <div class="font-bold text-sky-400" style="margin-top:12px">Yêu cầu gần đây của tôi</div>
+        <div id="reqList" class="space-y-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="statsModal">
+    <div class="modal-content">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <h3 class="font-bold text-sm text-sky-400">📋 Phiếu Quản Lý Cá Nhân</h3>
+        <button onclick="closeStatsModal()" class="text-slate-400 hover:text-white font-bold text-lg px-2">✕</button>
+      </div>
+
+      <div class="modal" id="advanceModal">
+        <div class="modal-content">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2">
+            <h3 class="font-bold text-sm text-emerald-400">💸 Yêu cầu ứng lương</h3>
+            <button onclick="closeAdvanceModal()" class="text-slate-400 font-bold text-lg px-2">✕</button>
+          </div>
+          <div id="advanceLimitInfo" class="rounded-xl border border-emerald-400/30 bg-emerald-400/10 p-3 text-xs text-slate-200">Đang kiểm tra hạn mức...</div>
+          <div class="space-y-2 text-xs text-slate-200">
+            <label>Số tiền muốn ứng (VND)</label>
+            <input id="advanceAmount" type="number" min="1" step="10000" inputmode="numeric" placeholder="Ví dụ: 500000" class="rq">
+            <label>Lý do (không bắt buộc)</label>
+            <input id="advanceReason" type="text" maxlength="160" placeholder="Ghi chú cho quản lý" class="rq">
+            <button type="button" id="btnSubmitAdvance" class="btn bq" style="background:linear-gradient(135deg,#0f766e 0%,#115e59 100%)" onclick="submitAdvanceRequest()">GỬI YÊU CẦU</button>
+          </div>
+          <div>
+            <div class="font-bold text-sky-400 mb-2">Yêu cầu ứng lương trong tháng</div>
+            <div id="advanceRequestList" class="space-y-2 text-xs"></div>
+          </div>
+          <button onclick="closeAdvanceModal()" class="w-full py-2.5 rounded-xl bg-white/10 font-bold text-xs">Đóng lại</button>
+        </div>
+      </div>
+      <div class="space-y-2 text-xs text-slate-200">
+        <div class="flex justify-between p-2 rounded-lg bg-white/5"><span>Tổng số ca làm việc:</span><strong id="stShifts">0</strong></div>
+        <div class="flex justify-between p-2 rounded-lg bg-white/5"><span>Tổng số lần đi trễ:</span><strong id="stLate" class="text-amber-400">0</strong></div>
+        <div class="flex justify-between p-2 rounded-lg bg-white/5"><span>Tổng số lần tăng ca:</span><strong id="stOvertime" class="text-emerald-400">0</strong></div>
+        <div class="flex justify-between p-2 rounded-lg bg-white/5"><span>Tổng số lần bị phạt:</span><strong id="stPenalty" class="text-rose-400">0</strong></div>
+        <div class="flex justify-between p-2 rounded-lg bg-white/5"><span>Tổng số lần ứng tiền:</span><strong id="stAdvance">0</strong></div>
+      </div>
+      <button onclick="closeStatsModal()" class="w-full py-2.5 rounded-xl bg-blue-600 font-bold text-xs hover:bg-blue-500 transition">Đóng lại</button>
+    </div>
+  </div>
+
+  <!-- MODAL ĐĂNG KÝ CA LÀM VÀ NGÀY NGHỈ 2 TUẦN TỚI -->
+  <div class="modal" id="availModal" style="display:none;position:fixed;inset:0;background:rgba(9,19,34,0.85);backdrop-filter:blur(6px);z-index:90;align-items:center;justify-content:center;padding:12px;">
+    <div class="modal-content" style="background:#0f1c30;border:1px solid rgba(255,255,255,0.18);border-radius:20px;max-width:420px;width:100%;max-height:90vh;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.5);">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px;">
+        <div>
+          <h3 style="font-weight:800;font-size:14px;color:#818cf8;">📅 Đăng ký lịch làm 2 tuần tới</h3>
+          <p style="font-size:11px;color:#94a3b8;">Chọn ca có thể làm hoặc xin nghỉ OFF</p>
+        </div>
+        <button type="button" onclick="closeAvailabilityModal()" style="background:none;border:none;color:#94a3b8;font-size:22px;cursor:pointer;padding:0 6px;line-height:1;">✕</button>
+      </div>
+
+      <!-- Quick action bar -->
+      <div style="display:flex;gap:6px;">
+        <button type="button" onclick="setAllAvail('AVAILABLE')" style="flex:1;padding:8px 6px;border-radius:10px;background:rgba(16,185,129,0.15);border:1px solid #10b981;color:#6ee7b7;font-size:11px;font-weight:700;cursor:pointer;">Tất cả: Có thể làm</button>
+        <button type="button" onclick="setAllAvail('OFF')" style="flex:1;padding:8px 6px;border-radius:10px;background:rgba(244,63,94,0.15);border:1px solid #f43f5e;color:#fda4af;font-size:11px;font-weight:700;cursor:pointer;">Tất cả: Nghỉ OFF</button>
+      </div>
+
+      <!-- List of 14 days -->
+      <div id="availDaysList" style="display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto;padding-right:2px;">
+        <div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px;">Đang nạp danh sách ngày...</div>
+      </div>
+
+      <!-- Submit button -->
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button type="button" id="btnSaveAvail" class="btn" style="background:#4f46e5;color:#fff;width:100%;height:44px;font-weight:800;font-size:13px;border-radius:12px;border:none;cursor:pointer;" onclick="saveAvailability()">LƯU & GỬI ĐĂNG KÝ LỊCH</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ĐỔI MẬT KHẨU / QUÊN MẬT KHẨU -->
+  <div class="modal" id="passModal">
+    <div class="modal-content" style="max-width:390px;">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="font-bold text-sm text-teal-300">🔐 Mật khẩu nhân viên</h3>
+        <button onclick="closePassModal()" class="text-slate-400 font-bold text-lg px-2">✕</button>
+      </div>
+      
+      <div style="display:flex;gap:8px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px;">
+        <button id="tabBtnChangePass" onclick="switchPassTab('change')" style="flex:1;padding:8px 0;font-size:12px;font-weight:700;border-radius:10px;border:none;background:#2563eb;color:#fff;cursor:pointer;">Đổi mật khẩu</button>
+        <button id="tabBtnForgotPass" onclick="switchPassTab('forgot')" style="flex:1;padding:8px 0;font-size:12px;font-weight:700;border-radius:10px;border:none;background:rgba(255,255,255,0.08);color:#94a3b8;cursor:pointer;">Quên mật khẩu (Face AI)</button>
+      </div>
+
+      <!-- Tab 1: Đổi mật khẩu thông thường -->
+      <div id="panelChangePass" class="space-y-2 text-xs text-slate-200">
+        <p style="font-size:11px;color:#94a3b8;">Nhập mật khẩu hiện tại và mật khẩu mới (4 - 6 số).</p>
+        <label>Mật khẩu cũ (PIN)</label>
+        <input id="inputOldPin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" class="rq">
+        <label>Mật khẩu mới (4-6 số)</label>
+        <input id="inputNewPin" type="password" inputmode="numeric" maxlength="6" placeholder="VD: 1234" class="rq">
+        <label>Nhập lại mật khẩu mới</label>
+        <input id="inputConfirmPin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" class="rq">
+        <button type="button" class="btn bq" style="background:linear-gradient(135deg,#0d9488 0%,#0f766e 100%);margin-top:6px;" onclick="submitChangePin()">XÁC NHẬN ĐỔI MẬT KHẨU</button>
+      </div>
+
+      <!-- Tab 2: Quên mật khẩu - Quét mặt Face AI để reset 0000 -->
+      <div id="panelForgotPass" class="space-y-2 text-xs text-slate-200" style="display:none;">
+        <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);border-radius:12px;padding:10px;color:#bae6fd;font-size:11px;line-height:1.4;">
+          🛡️ <strong>Bảo mật AI:</strong> Nhân viên phải quét khuôn mặt chính chủ trùng khớp với ảnh đã duyệt trên hệ thống mới được phép đặt lại mật khẩu về <strong>0000</strong>.
+        </div>
+        
+        <div id="forgotStepScan">
+          <div class="scanner" id="forgotScanBox" onclick="document.getElementById('forgotCam').click()" style="aspect-ratio:1/1;max-height:220px;border-radius:18px;margin:8px 0;">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <div id="forgotGuide" style="text-align:center;color:var(--text-dim);z-index:2;">
+              <div style="font-size:26px;">📷</div>
+              <div style="font-size:12px;font-weight:600;color:#e2e8f0;margin-top:2px;">Chạm để quét mặt xác thực</div>
+              <div style="font-size:10px;color:#64748b;" id="forgotAiBadge">Quét mặt chính chủ</div>
+            </div>
+            <img id="forgotPrev" alt="" style="display:none;">
+            <canvas id="forgotOverlay" style="display:none;z-index:2;"></canvas>
+          </div>
+          <input id="forgotCam" type="file" accept="image/*" capture="user" hidden>
+          <div id="forgotScanMsg" style="text-align:center;font-size:11px;color:#94a3b8;">Vui lòng chụp ảnh khuôn mặt chính diện đủ sáng</div>
+        </div>
+
+        <div id="forgotStepSuccess" style="display:none;padding:10px 0;" class="space-y-2">
+          <div style="padding:10px;background:rgba(16,185,129,0.15);border:1px solid #10b981;border-radius:12px;color:#a7f3d0;font-size:12px;font-weight:700;text-align:center;">
+            ✅ Xác thực khuôn mặt thành công!
+          </div>
+          <p style="font-size:11px;color:#94a3b8;text-align:center;">Bấm nút bên dưới để khôi phục về mật khẩu mặc định <strong>0000</strong> hoặc tự đặt mật khẩu mới.</p>
+          <button type="button" class="btn bq" style="background:#10b981;" onclick="submitResetPinDefault()">
+            RESET VỀ MẬT KHẨU MẶC ĐỊNH (0000)
+          </button>
+          <div style="text-align:center;color:#64748b;font-size:11px;margin:6px 0;">— HOẶC ĐẶT MẬT KHẨU MỚI —</div>
+          <label>Mật khẩu mới (4-6 số)</label>
+          <input id="inputCustomResetPin" type="password" inputmode="numeric" maxlength="6" placeholder="VD: 5678" class="rq">
+          <button type="button" class="btn bq" style="background:#2563eb;" onclick="submitResetPinCustom()">LƯU MẬT KHẨU MỚI NÀY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL XEM LỊCH LÀM VIỆC CÁ NHÂN (TUẦN NÀY & TUẦN TỚI) -->
+  <div class="modal" id="myScheduleModal" style="display:none;position:fixed;inset:0;background:rgba(9,19,34,0.88);backdrop-filter:blur(6px);z-index:85;align-items:center;justify-content:center;padding:12px;">
+    <div class="modal-content" style="background:#0f1c30;border:1px solid rgba(255,255,255,0.18);border-radius:20px;max-width:420px;width:100%;max-height:92vh;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.5);">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px;">
+        <div>
+          <h3 style="font-weight:800;font-size:14px;color:#818cf8;">📆 Lịch Làm Việc Của Tôi</h3>
+          <p id="mySchedEmpSub" style="font-size:11px;color:#94a3b8;">Đang nạp dữ liệu...</p>
+        </div>
+        <button type="button" onclick="closeMyScheduleModal()" style="background:none;border:none;color:#94a3b8;font-size:22px;cursor:pointer;padding:0 6px;line-height:1;">✕</button>
+      </div>
+
+      <!-- Tab chọn tuần -->
+      <div style="display:flex;gap:6px;">
+        <button type="button" id="btnSchedWeekCurrent" onclick="switchScheduleWeek('current')" style="flex:1;padding:8px 6px;border-radius:10px;background:#6366f1;border:none;color:#fff;font-size:12px;font-weight:700;cursor:pointer;">Tuần Này</button>
+        <button type="button" id="btnSchedWeekNext" onclick="switchScheduleWeek('next')" style="flex:1;padding:8px 6px;border-radius:10px;background:rgba(255,255,255,0.08);border:none;color:#94a3b8;font-size:12px;font-weight:700;cursor:pointer;">Tuần Tới</button>
+      </div>
+
+      <!-- Danh sách các ngày trong tuần -->
+      <div id="myScheduleDaysList" style="display:flex;flex-direction:column;gap:8px;max-height:58vh;overflow-y:auto;padding-right:2px;">
+        <div style="text-align:center;padding:24px;color:#94a3b8;font-size:12px;">Đang tải lịch làm việc...</div>
+      </div>
+
+      <button type="button" class="btn" style="background:rgba(255,255,255,0.1);color:#fff;width:100%;height:40px;font-size:12px;border-radius:12px;border:none;cursor:pointer;" onclick="closeMyScheduleModal()">Đóng lại</button>
+    </div>
+  </div>
+
+  <script>
+    const $ = i => document.getElementById(i);
+    const DEV = (() => { let d = localStorage.getItem('br_dev'); if (!d) { d = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('br_dev', d); } return d; })();
+    window.addEventListener('load', () => { const el = $('rqDate'); if (el) el.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10); });
+    let photoData = '', extractedDescriptor = null, isModelReady = false, cachedStats = {};
+
+    function updateTime() {
+      const now = new Date();
+      $('clock').textContent = now.toTimeString().split(' ')[0];
+      const dNames = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+      $('date').textContent = `${dNames[now.getDay()]}, ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+    }
+    setInterval(updateTime, 1000); updateTime();
+
+    function toast(m, c) { const t = $('toast'); t.className = 'toast t-' + c; t.textContent = m; t.style.display = 'block'; }
+    async function loadServerVersion() {
+      try {
+        const response = await fetch('/api/version', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!data.ok || !data.version) throw new Error('Phản hồi phiên bản không hợp lệ.');
+        $('appVersion').textContent = `Chấm công khuôn mặt • v${data.version}`;
+      } catch (error) {
+        $('appVersion').textContent = 'Chấm công khuôn mặt • Không kết nối máy chủ';
+      }
+    }
+    loadServerVersion();
+
+    const loadNets = u => Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(u), faceapi.nets.faceLandmark68TinyNet.loadFromUri(u), faceapi.nets.faceRecognitionNet.loadFromUri(u)]);
+    let curFaceStatus = 'APPROVED', samples = [], enrollPhoto = '';
+    async function analyzeFace(c) {
+      const opt = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.55 });
+      let det = await faceapi.detectSingleFace(c, opt).withFaceLandmarks(true).withFaceDescriptor();
+      if (!det) det = await faceapi.detectSingleFace(c, new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.45 })).withFaceLandmarks(true).withFaceDescriptor();
+      if (!det) return { err: 'Không thấy khuôn mặt rõ. Chụp chính diện, đủ sáng.' };
+      if (det.detection.box.width < c.width * 0.28) return { err: 'Khuôn mặt quá nhỏ, hãy đưa điện thoại gần hơn.' };
+      const L = det.landmarks.getLeftEye(), R = det.landmarks.getRightEye();
+      if (Math.abs(Math.atan2(R[0].y - L[0].y, R[0].x - L[0].x) * 180 / Math.PI) > 18) return { err: 'Đầu đang nghiêng, hãy giữ thẳng rồi chụp lại.' };
+      let d = Array.from(det.descriptor);
+      try { // trung bình mô tả ảnh gốc + ảnh lật gương để kết quả ổn định hơn
+        const f = document.createElement('canvas'); f.width = c.width; f.height = c.height; const fx = f.getContext('2d'); fx.translate(c.width, 0); fx.scale(-1, 1); fx.drawImage(c, 0, 0);
+        const dm = await faceapi.detectSingleFace(f, opt).withFaceLandmarks(true).withFaceDescriptor(); if (dm) d = d.map((v, i) => (v + dm.descriptor[i]) / 2);
+      } catch (e) {}
+      return { det, descriptor: d };
+    }
+    function applyFaceMode() {
+      samples = []; const bi = $('bIn'), bo = $('bOut'), st = cachedStats || {}, open = st.lastCheckIn && !st.lastCheckOut;
+      if (curFaceStatus === 'NONE') { bi.style.display = bo.style.display = 'none'; $('statusMsg').textContent = 'Chưa đăng ký khuôn mặt: chụp 3 ảnh (thẳng, quay trái, quay phải)'; return; }
+      bi.style.display = bo.style.display = ''; bi.disabled = bo.disabled = curFaceStatus === 'PENDING';
+      if (curFaceStatus === 'PENDING') { $('statusMsg').textContent = 'Khuôn mặt đang chờ quản lý duyệt'; return; }
+      bi.style.opacity = open ? '.4' : '1'; bo.style.opacity = open ? '1' : '.4';
+    }
+    async function initFaceAPI() {
+      try {
+        for (let i = 0; i < 60 && typeof faceapi === 'undefined'; i++) await new Promise(r => setTimeout(r, 200));
+        let MODEL_URL = '/models';
+        try {
+          await loadNets(MODEL_URL); $('aiBadge').textContent = 'AI Offline';
+        } catch (e) {
+          MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+          await loadNets(MODEL_URL); $('aiBadge').textContent = 'AI Online';
+        }
+        try { const wc = document.createElement('canvas'); wc.width = wc.height = 96; await faceapi.detectSingleFace(wc, new faceapi.TinyFaceDetectorOptions({ inputSize: 224 })).withFaceLandmarks(true).withFaceDescriptor(); } catch (e) {}
+        isModelReady = true; $('statusMsg').textContent = 'Sẵn sàng chấm công';
+      } catch (err) { $('aiBadge').textContent = 'Lỗi AI'; }
+    }
+    initFaceAPI();
+
+    async function loadData() {
+      const empId = $('emp').value;
+      const requestedBranchId = new URLSearchParams(window.location.search).get('branchId') || '';
+      try {
+        const query = empId ? `?empId=${encodeURIComponent(empId)}&deviceId=${encodeURIComponent(DEV)}` : '';
+        const res = await (await fetch(`/api/bootstrap${query}`, { cache: 'no-store' })).json().catch(()=>({ok:false}));
+        if (res && res.ok) {
+          if (!empId && res.employees && res.employees.length) {
+            const empSelect = $('emp');
+            empSelect.textContent = '';
+            res.employees.forEach(e => {
+              const option = document.createElement('option');
+              option.value = String(e.id);
+              option.textContent = `${e.name}${e.faceStatus === 'APPROVED' || (!e.faceStatus && e.hasFaceProfile) ? '' : e.faceStatus === 'PENDING' ? ' (Chờ duyệt mặt)' : ' (Chưa đăng ký mặt)'}`;
+              empSelect.appendChild(option);
+            });
+            if (res.employees[0]) $('emp').value = res.employees[0].id;
+            loadData(); return;
+          }
+          const emp = res.employees && res.employees.find(e => e.id === empId);
+          if (emp) {
+            const activeBranchId = res.stats && res.stats.activeBranchId;
+            const allowedBranches = (res.branches || []).filter(branch => (emp.branchIds || []).includes(branch.id) || branch.id === activeBranchId);
+            const currentBranchId = $('branch').value;
+            const branchSelect = $('branch');
+            branchSelect.textContent = '';
+            allowedBranches.forEach(branch => {
+              const option = document.createElement('option');
+              option.value = branch.id;
+              option.textContent = branch.name;
+              branchSelect.appendChild(option);
+            });
+            if (!allowedBranches.length) {
+              const option = document.createElement('option');
+              option.value = '';
+              option.textContent = 'Chưa được gán chi nhánh';
+              branchSelect.appendChild(option);
+            }
+            if (activeBranchId && allowedBranches.some(branch => branch.id === activeBranchId)) $('branch').value = activeBranchId;
+            else if (requestedBranchId && allowedBranches.some(branch => branch.id === requestedBranchId)) $('branch').value = requestedBranchId;
+            else if (allowedBranches.some(branch => branch.id === currentBranchId)) $('branch').value = currentBranchId;
+            else if (allowedBranches.length) $('branch').value = allowedBranches[0].id;
+            $('branch').disabled = Boolean(activeBranchId);
+          }
+          if (emp && emp.avatar) $('empAvatar').src = emp.avatar;
+          curFaceStatus = emp ? (emp.faceStatus || (emp.hasFaceProfile ? 'APPROVED' : 'NONE')) : 'APPROVED';
+
+          if (res.stats) {
+            cachedStats = res.stats;
+            $('inTimeDisplay').textContent = res.stats.lastCheckIn || '--:--';
+            $('outTimeDisplay').textContent = res.stats.lastCheckOut || '--:--';
+            $('totalHoursDisplay').textContent = res.stats.todayHours + ' giờ';
+            updateShiftAndStatusDisplay(emp, res.stats);
+          }
+          applyFaceMode();
+        }
+      } catch (e) {}
+    }
+    loadData();
+
+    function updateShiftAndStatusDisplay(emp, stats) {
+      const shiftEl = $('shiftNameTime');
+      const badgeEl = $('shiftStatusBadge');
+      if (!shiftEl || !badgeEl) return;
+
+      const shifts = (stats && stats.todayShifts && stats.todayShifts.length) ? stats.todayShifts : (emp && emp.todayShifts && emp.todayShifts.length ? emp.todayShifts : []);
+      if (shifts.length > 0) {
+        shiftEl.textContent = shifts.map(s => `${s.name} (${s.start || s.startTime || '--:--'} - ${s.end || s.endTime || '--:--'})`).join(', ');
+      } else {
+        shiftEl.textContent = 'Không có ca hôm nay';
+      }
+
+      // Đánh giá 5 trạng thái: đúng giờ, trễ giờ, quên chấm công, chờ duyệt, đã xin nghỉ off
+      const st = (stats && stats.attendanceStatus) ? stats.attendanceStatus : null;
+      const code = st ? st.code : 'READY';
+      const label = st ? st.label : 'Chưa vào ca';
+
+      const STATUS_STYLES = {
+        ON_TIME: { bg: 'rgba(16, 185, 129, 0.2)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.5)', icon: '🟢', text: 'Đúng giờ' },
+        LATE: { bg: 'rgba(244, 63, 94, 0.2)', color: '#fb7185', border: '1px solid rgba(244, 63, 94, 0.5)', icon: '🔴', text: label || 'Trễ giờ' },
+        FORGOT: { bg: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.5)', icon: '🟠', text: 'Quên chấm công' },
+        PENDING: { bg: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.5)', icon: '🔵', text: 'Chờ duyệt' },
+        OFF: { bg: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.5)', icon: '🟣', text: 'Đã xin nghỉ off' },
+        READY: { bg: 'rgba(255, 255, 255, 0.08)', color: '#94a3b8', border: '1px solid rgba(255, 255, 255, 0.15)', icon: '⚪', text: 'Chưa vào ca' }
+      };
+
+      const cur = STATUS_STYLES[code] || STATUS_STYLES.READY;
+      badgeEl.textContent = `${cur.icon} ${cur.text}`;
+      badgeEl.style.background = cur.bg;
+      badgeEl.style.color = cur.color;
+      badgeEl.style.border = cur.border;
+    }
+
+    function openPassModal() {
+      const empId = $('emp') ? $('emp').value : '';
+      if (!empId) return toast('Vui lòng chọn nhân viên trước.', 'er');
+      switchPassTab('change');
+      $('inputOldPin').value = '';
+      $('inputNewPin').value = '';
+      $('inputConfirmPin').value = '';
+      $('passModal').style.display = 'flex';
+    }
+    function closePassModal() {
+      $('passModal').style.display = 'none';
+      resetForgotState();
+    }
+    function switchPassTab(tab) {
+      const isChange = tab === 'change';
+      $('tabBtnChangePass').style.background = isChange ? '#2563eb' : 'rgba(255,255,255,0.08)';
+      $('tabBtnChangePass').style.color = isChange ? '#fff' : '#94a3b8';
+      $('tabBtnForgotPass').style.background = !isChange ? '#2563eb' : 'rgba(255,255,255,0.08)';
+      $('tabBtnForgotPass').style.color = !isChange ? '#fff' : '#94a3b8';
+      $('panelChangePass').style.display = isChange ? 'block' : 'none';
+      $('panelForgotPass').style.display = !isChange ? 'block' : 'none';
+      if (!isChange) resetForgotState();
+    }
+    async function submitChangePin() {
+      const empId = $('emp').value;
+      const oldPin = $('inputOldPin').value.trim();
+      const newPin = $('inputNewPin').value.trim();
+      const confirmPin = $('inputConfirmPin').value.trim();
+
+      if (!empId) return toast('Vui lòng chọn nhân viên.', 'er');
+      if (!/^\d{4,6}$/.test(newPin)) return toast('Mật khẩu mới phải từ 4 đến 6 chữ số.', 'er');
+      if (newPin !== confirmPin) return toast('Mật khẩu nhập lại không khớp.', 'er');
+
+      try {
+        const res = await (await fetch('/api/change-pin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ empId, oldPin, newPin, deviceId: DEV })
+        })).json();
+
+        if (res.ok) {
+          toast('✔ ' + (res.msg || 'Đổi mật khẩu thành công!'), 'ok');
+          closePassModal();
+        } else {
+          toast(res.error || 'Đổi mật khẩu thất bại.', 'er');
+        }
+      } catch (e) {
+        toast('Mất kết nối máy chủ WiFi.', 'er');
+      }
+    }
+
+    let currentScheduleData = null;
+    let selectedScheduleWeek = 'current';
+
+    async function openMyScheduleModal() {
+      const empId = $('emp') ? $('emp').value : '';
+      if (!empId) return toast('Vui lòng chọn nhân viên trước.', 'er');
+      const empSelect = $('emp');
+      const empName = empSelect.options[empSelect.selectedIndex]?.text?.replace(/\s*\(.*\)/, '') || empId;
+      $('mySchedEmpSub').textContent = `Nhân sự: ${empName}`;
+      $('myScheduleModal').style.display = 'flex';
+      selectedScheduleWeek = 'current';
+      updateSchedWeekButtons();
+      $('myScheduleDaysList').innerHTML = '<div style="text-align:center;padding:24px;color:#94a3b8;font-size:12px;">Đang nạp dữ liệu lịch...</div>';
+
+      try {
+        const query = `empId=${encodeURIComponent(empId)}&deviceId=${encodeURIComponent(DEV)}`;
+        const res = await (await fetch(`/api/my-schedule?${query}`, { cache: 'no-store' })).json();
+        if (res && res.ok) {
+          currentScheduleData = res;
+          renderMyScheduleDays();
+        } else {
+          $('myScheduleDaysList').innerHTML = `<div style="text-align:center;padding:24px;color:#f43f5e;font-size:12px;">${escapeText(res.error || 'Không thể tải lịch.')}</div>`;
+        }
+      } catch (e) {
+        $('myScheduleDaysList').innerHTML = '<div style="text-align:center;padding:24px;color:#f43f5e;font-size:12px;">Mất kết nối máy chủ WiFi.</div>';
+      }
+    }
+
+    function closeMyScheduleModal() {
+      $('myScheduleModal').style.display = 'none';
+    }
+
+    function switchScheduleWeek(week) {
+      selectedScheduleWeek = week;
+      updateSchedWeekButtons();
+      renderMyScheduleDays();
+    }
+
+    function updateSchedWeekButtons() {
+      const isCur = selectedScheduleWeek === 'current';
+      $('btnSchedWeekCurrent').style.background = isCur ? '#6366f1' : 'rgba(255,255,255,0.08)';
+      $('btnSchedWeekCurrent').style.color = isCur ? '#fff' : '#94a3b8';
+      $('btnSchedWeekNext').style.background = !isCur ? '#6366f1' : 'rgba(255,255,255,0.08)';
+      $('btnSchedWeekNext').style.color = !isCur ? '#fff' : '#94a3b8';
+    }
+
+    function renderMyScheduleDays() {
+      if (!currentScheduleData) return;
+      const days = selectedScheduleWeek === 'current' ? currentScheduleData.currentWeek : currentScheduleData.nextWeek;
+      if (!Array.isArray(days) || !days.length) {
+        $('myScheduleDaysList').innerHTML = '<div style="text-align:center;padding:24px;color:#94a3b8;font-size:12px;">Chưa có lịch cho tuần này.</div>';
+        return;
+      }
+
+      $('myScheduleDaysList').innerHTML = days.map(d => {
+        const isToday = d.isToday;
+        const shifts = d.shifts || [];
+        const shiftStr = shifts.length > 0
+          ? shifts.map(s => `${s.name} (${s.start} - ${s.end})`).join(', ')
+          : (d.isOffPref ? 'Đã xin nghỉ OFF' : 'Không có ca');
+        const safeStatusColor = /^#[0-9a-f]{6}$/i.test(d.statusColor || '') ? d.statusColor : '#94a3b8';
+
+        const punchInfo = (d.checkIn || d.checkOut)
+          ? `<div style="font-size:11px;font-family:monospace;margin-top:3px;color:#e2e8f0;">Vào: <strong>${escapeText(d.checkIn || '--:--')}</strong> → Ra: <strong>${escapeText(d.checkOut || (d.isToday ? 'Đang ca' : '--:--'))}</strong></div>`
+          : '';
+
+        const badgeBorder = `border: 1px solid ${safeStatusColor}55; background: ${safeStatusColor}22; color: ${safeStatusColor};`;
+
+        return `
+          <div style="background:${isToday ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.04)'};border:1px solid ${isToday ? '#818cf8' : 'rgba(255,255,255,0.08)'};border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <strong style="font-size:13px;color:#f8fafc;">${escapeText(d.dayLabel)}, ${escapeText(d.shortDate)}</strong>
+                ${isToday ? '<span style="font-size:10px;padding:1px 6px;border-radius:999px;background:#6366f1;color:#fff;font-weight:800;">Hôm nay</span>' : ''}
+              </div>
+              <span style="padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;${badgeBorder}">
+                ${escapeText(d.statusLabel)}
+              </span>
+            </div>
+            <div style="font-size:12px;color:${shifts.length > 0 ? '#38bdf8' : (d.isOffPref ? '#c084fc' : '#94a3b8')};font-weight:600;">
+              ⏰ ${escapeText(shiftStr)}
+            </div>
+            ${punchInfo}
+            ${d.offNote ? `<div style="font-size:10px;color:#fda4af;font-style:italic;">Lý do nghỉ: "${escapeText(d.offNote)}"</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openStatsModal() {
+      $('stShifts').textContent = cachedStats.shiftsCount || 0;
+      $('stLate').textContent = cachedStats.lateCount || 0;
+      $('stOvertime').textContent = cachedStats.overtimeCount || 0;
+      $('stPenalty').textContent = cachedStats.penaltyCount || 0;
+      $('stAdvance').textContent = cachedStats.advanceCount || 0;
+      $('statsModal').style.display = 'flex';
+    }
+    function closeStatsModal() { $('statsModal').style.display = 'none'; }
+    const formatVND = value => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 }).format(Number(value) || 0) + ' ₫';
+    const escapeText = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const escapeAttr = value => escapeText(value).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    function openAdvanceModal() {
+      $('advanceModal').style.display = 'flex';
+      $('advanceAmount').value = '';
+      $('advanceReason').value = '';
+      loadAdvanceSummary();
+    }
+    function closeAdvanceModal() { $('advanceModal').style.display = 'none'; }
+    async function loadAdvanceSummary() {
+      const empId = $('emp').value, info = $('advanceLimitInfo'), list = $('advanceRequestList'), submitButton = $('btnSubmitAdvance');
+      submitButton.disabled = true;
+      info.textContent = 'Đang kiểm tra hạn mức...';
+      list.textContent = '';
+      if (!empId) { info.textContent = 'Vui lòng chọn nhân viên.'; return; }
+      try {
+        const query = `empId=${encodeURIComponent(empId)}&deviceId=${encodeURIComponent(DEV)}`;
+        const response = await fetch(`/api/my-advances?${query}`, { cache: 'no-store' });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || 'Không tải được hạn mức ứng lương.');
+        info.innerHTML = `<div class="font-bold text-emerald-300">Lương thực nhận ước tính: ${formatVND(result.salaryEstimate)}</div><div>Hạn mức 50%: ${formatVND(result.limit)} • Còn có thể yêu cầu: <strong>${formatVND(result.remaining)}</strong></div><div>Đã dùng ${result.requestCount}/3 lần • Hạn gửi yêu cầu đến hết ngày 25</div><div class="mt-1 text-[10px] text-slate-400">Đơn chờ duyệt được giữ hạn mức; đơn bị từ chối sẽ được giải phóng.</div>`;
+        const states = { PENDING: ['Chờ duyệt', '#fbbf24'], APPROVED: ['Đã duyệt', '#34d399'], REJECTED: ['Từ chối', '#fb7185'] };
+        list.innerHTML = (result.requests || []).map(request => {
+          const state = states[request.status] || [request.status, '#94a3b8'];
+          return `<div class="rounded-lg border border-white/10 bg-white/5 p-2"><div style="display:flex;justify-content:space-between;gap:8px;"><strong>${formatVND(request.amount)}</strong><span style="color:${state[1]};font-weight:700;">${state[0]}</span></div><div class="text-slate-400">${new Date(request.ts).toLocaleString('vi-VN')}${request.reason ? ' • ' + escapeText(request.reason) : ''}</div>${request.msg ? `<div class="text-slate-300">${escapeText(request.msg)}</div>` : ''}</div>`;
+        }).join('') || '<div class="text-slate-400">Chưa có yêu cầu trong tháng này.</div>';
+        submitButton.disabled = !result.canRequest;
+        if (!result.canRequest && result.message) info.innerHTML += `<div class="mt-1 font-bold text-amber-300">${result.message}</div>`;
+      } catch (error) {
+        info.textContent = error.message || 'Không tải được hạn mức. Hãy kiểm tra kết nối hoặc thiết bị đã đăng ký.';
+        list.textContent = 'Không thể tải lịch sử yêu cầu.';
+      }
+    }
+    async function submitAdvanceRequest() {
+      const empId = $('emp').value, amount = Number($('advanceAmount').value), reason = $('advanceReason').value.trim(), button = $('btnSubmitAdvance');
+      if (!empId) return toast('Vui lòng chọn nhân viên.', 'er');
+      if (!Number.isSafeInteger(amount) || amount <= 0) return toast('Nhập số tiền ứng hợp lệ (VND).', 'er');
+      button.disabled = true;
+      try {
+        const response = await fetch('/api/advance-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ empId, deviceId: DEV, amount, reason })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || 'Không gửi được yêu cầu.');
+        toast('Đã gửi yêu cầu ứng lương, chờ quản lý duyệt.', 'ok');
+        $('advanceAmount').value = '';
+        $('advanceReason').value = '';
+        await loadAdvanceSummary();
+      } catch (error) {
+        toast(error.message || 'Không gửi được yêu cầu ứng lương.', 'er');
+        await loadAdvanceSummary();
+      }
+    }
+
+    let forgotDescriptor = null;
+    function resetForgotState() {
+      forgotDescriptor = null;
+      $('forgotStepScan').style.display = 'block';
+      $('forgotStepSuccess').style.display = 'none';
+      $('forgotPrev').style.display = 'none';
+      $('forgotOverlay').style.display = 'none';
+      $('forgotGuide').style.display = 'block';
+      $('forgotScanBox').classList.remove('active', 'scanning');
+      $('forgotScanMsg').textContent = 'Vui lòng chụp ảnh khuôn mặt chính diện đủ sáng';
+      $('inputCustomResetPin').value = '';
+    }
+
+    $('forgotCam').onchange = async e => {
+      const f = e.target.files[0]; if (!f) return;
+      if (!isModelReady) return toast('Đang khởi động AI, thử lại sau ít giây.', 'er');
+      $('forgotScanMsg').textContent = 'Đang nhận diện khuôn mặt...';
+      $('forgotScanBox').classList.add('scanning');
+
+      const img = new Image();
+      img.onload = async () => {
+        const scale = Math.min(1, 640 / Math.max(img.width, img.height));
+        const c = document.createElement('canvas'); c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        const pData = c.toDataURL('image/jpeg', 0.8);
+        $('forgotPrev').src = pData; $('forgotPrev').style.display = 'block'; $('forgotGuide').style.display = 'none';
+
+        const an = await analyzeFace(c), detection = an.det;
+        if (!detection) {
+          forgotDescriptor = null;
+          $('forgotScanBox').classList.remove('active', 'scanning');
+          $('forgotOverlay').style.display = 'none';
+          toast(an.err || 'Không nhận diện được khuôn mặt rõ!', 'er');
+          $('forgotScanMsg').textContent = an.err || 'Chụp lại chính diện, đủ sáng';
+          return;
+        }
+
+        forgotDescriptor = an.descriptor;
+        $('forgotScanBox').classList.add('active');
+        const overlay = $('forgotOverlay'); overlay.width = c.width; overlay.height = c.height; overlay.style.display = 'block';
+        const oCtx = overlay.getContext('2d'); oCtx.clearRect(0, 0, overlay.width, overlay.height);
+        const box = detection.detection.box; oCtx.strokeStyle = '#10b981'; oCtx.lineWidth = 3; oCtx.strokeRect(box.x, box.y, box.width, box.height);
+        $('forgotScanBox').classList.remove('scanning');
+        
+        $('forgotScanMsg').textContent = 'Đang đối chiếu với hồ sơ nhân viên...';
+        try {
+          const res = await (await fetch('/api/verify-face-reset-pin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              empId: $('emp').value,
+              descriptor: forgotDescriptor,
+              deviceId: DEV,
+              newPin: '0000'
+            })
+          })).json();
+
+          if (res.ok) {
+            $('forgotStepScan').style.display = 'none';
+            $('forgotStepSuccess').style.display = 'block';
+            toast('✔ Khuôn mặt chính chủ hợp lệ! Mật khẩu đã được reset về 0000.', 'ok');
+          } else {
+            $('forgotScanMsg').textContent = res.error || 'Xác thực thất bại';
+            toast(res.error || 'Khuôn mặt không khớp!', 'er');
+          }
+        } catch (err) {
+          toast('Mất kết nối máy chủ WiFi.', 'er');
+          $('forgotScanMsg').textContent = 'Lỗi kết nối máy chủ.';
+        }
+      };
+      img.src = URL.createObjectURL(f);
+    };
+
+    async function submitResetPinDefault() {
+      toast('✔ Đã khôi phục mật khẩu mặc định 0000 thành công!', 'ok');
+      closePassModal();
+      loadData();
+    }
+
+    async function submitResetPinCustom() {
+      const empId = $('emp').value;
+      const newPin = $('inputCustomResetPin').value.trim();
+      if (!/^\d{4,6}$/.test(newPin)) return toast('Mật khẩu mới phải từ 4 đến 6 chữ số.', 'er');
+      if (!forgotDescriptor) return toast('Vui lòng quét khuôn mặt trước.', 'er');
+
+      try {
+        const res = await (await fetch('/api/verify-face-reset-pin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            empId,
+            descriptor: forgotDescriptor,
+            deviceId: DEV,
+            newPin
+          })
+        })).json();
+
+        if (res.ok) {
+          toast('✔ ' + (res.msg || `Đã đặt mật khẩu mới thành công: ${newPin}`), 'ok');
+          closePassModal();
+          loadData();
+        } else {
+          toast(res.error || 'Đặt mật khẩu thất bại.', 'er');
+        }
+      } catch (e) {
+        toast('Mất kết nối máy chủ WiFi.', 'er');
+      }
+    }
+
+    $('cam').onchange = async e => {
+      const f = e.target.files[0]; if (!f) return;
+      if (!isModelReady) return toast('Đang khởi động AI, thử lại sau ít giây.', 'er');
+      $('statusMsg').textContent = 'Đang phân tích khuôn mặt...'; $('scanBox').classList.add('scanning');
+      const img = new Image();
+      img.onload = async () => {
+        const scale = Math.min(1, 640 / Math.max(img.width, img.height));
+        const c = document.createElement('canvas'); c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        photoData = c.toDataURL('image/jpeg', 0.8);
+        $('prev').src = photoData; $('prev').style.display = 'block'; $('guide').style.display = 'none';
+
+        const an = await analyzeFace(c), detection = an.det;
+        if (!detection) {
+          extractedDescriptor = null; $('scanBox').classList.remove('active', 'scanning'); $('overlay').style.display = 'none';
+          toast(an.err || 'Không nhận diện được khuôn mặt rõ!', 'er'); $('statusMsg').textContent = an.err || 'Chụp lại chính diện, đủ sáng';
+          return;
+        }
+        extractedDescriptor = an.descriptor;
+        $('scanBox').classList.add('active');
+        const overlay = $('overlay'); overlay.width = c.width; overlay.height = c.height; overlay.style.display = 'block';
+        const oCtx = overlay.getContext('2d'); oCtx.clearRect(0, 0, overlay.width, overlay.height);
+        const box = detection.detection.box; oCtx.strokeStyle = '#10b981'; oCtx.lineWidth = 3; oCtx.strokeRect(box.x, box.y, box.width, box.height);
+        $('scanBox').classList.remove('scanning'); toast('Khuôn mặt hợp lệ!', 'ok');
+        if (curFaceStatus === 'NONE') {
+          samples.push(extractedDescriptor); if (samples.length === 1) enrollPhoto = photoData;
+          if (samples.length < 3) { $('statusMsg').textContent = `Mẫu ${samples.length}/3 xong. Hơi quay sang ${samples.length === 1 ? 'TRÁI' : 'PHẢI'} rồi chụp tiếp`; return; }
+          photoData = enrollPhoto; submit('in'); return;
+        } $('statusMsg').textContent = 'Sẵn sàng xác nhận';
+        if (navigator.vibrate) navigator.vibrate(50);
+      };
+      img.src = URL.createObjectURL(f);
+    };
+
+    function openReqModal() { $('reqModal').style.display = 'flex'; loadMyReqs(); }
+    function closeReqModal() { $('reqModal').style.display = 'none'; }
+    async function loadMyReqs() {
+      try {
+        const j = await (await fetch(`/api/my-requests?empId=${encodeURIComponent($('emp').value)}&deviceId=${encodeURIComponent(DEV)}`)).json();
+        if (!j.ok) throw new Error(j.error || 'Không tải được danh sách yêu cầu.');
+        const L = { PENDING: ['⏳ Chờ duyệt', 'text-amber-400'], DONE: ['✔ Đã duyệt', 'text-emerald-400'], REJECTED: ['✖ Từ chối', 'text-rose-400'] };
+        $('reqList').innerHTML = (j.requests || []).map(r => `<div class="p-2 rounded-lg bg-white/5"><div class="font-bold">${escapeText(r.date)} • ${escapeText(r.timeIn)}${r.timeOut ? '–' + escapeText(r.timeOut) : ''} <span class="${(L[r.status] || [])[1]}">${escapeText((L[r.status] || [r.status])[0])}</span></div><div>${escapeText(r.reason)}</div>${r.msg ? `<div class="text-slate-400">${escapeText(r.msg)}</div>` : ''}</div>`).join('') || '<div class="text-slate-400">Chưa có yêu cầu nào.</div>';
+      } catch (e) { $('reqList').textContent = e.message || 'Không tải được danh sách.'; }
+    }
+    async function sendReq() {
+      const empId = $('emp').value, date = $('rqDate').value, tin = $('rqIn').value, tout = $('rqOut').value, why = $('rqWhy').value.trim();
+      if (!empId) return toast('Chọn tên của bạn ở màn hình chính.', 'er');
+      if (!date || !tin || why.length < 5) return toast('Nhập ngày, giờ vào và lý do (tối thiểu 5 ký tự).', 'er');
+      try {
+        const r = await (await fetch('/api/request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ empId, deviceId: DEV, date, timeIn: tin, timeOut: tout, reason: why }) })).json();
+        if (!r.ok) return toast(r.error || 'Không gửi được.', 'er');
+        toast('📨 Đã gửi yêu cầu, chờ quản lý duyệt.', 'wt'); $('rqWhy').value = ''; loadMyReqs();
+      } catch (e) { toast('Mất kết nối WiFi cửa hàng.', 'er'); }
+    }
+
+    let currentAvailData = {};
+    const SHIFT_OPTIONS = [
+      { id: 'ALL', name: 'Bất kỳ ca nào (Ca nào cũng được)' },
+      { id: 'SH_ADMIN', name: 'Ca Hành chính (08:30 - 17:30)' },
+      { id: 'SH_SPLIT_M', name: 'Ca Sáng (09:30 - 14:00)' },
+      { id: 'SH_SPLIT_E', name: 'Ca Chiều / Tối (14:00 - 22:00)' },
+      { id: 'SH_NIGHT', name: 'Ca Đêm / Bar (18:00 - 02:00)' }
+    ];
+
+    function getUpcoming14Days() {
+      const days = [];
+      const WD = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+      const now = new Date();
+      for (let i = 1; i <= 14; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+        const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+        days.push({
+          dateStr: `${y}-${m}-${day}`,
+          label: WD[d.getDay()],
+          shortDate: `${day}/${m}`,
+          isWeekend: d.getDay() === 0 || d.getDay() === 6
+        });
+      }
+      return days;
+    }
+
+    async function openAvailabilityModal() {
+      const empId = $('emp') ? $('emp').value : '';
+      if (!empId) return toast('Vui lòng chọn nhân viên trước.', 'er');
+      $('availModal').style.display = 'flex';
+      $('availDaysList').innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px;">Đang tải lịch đăng ký...</div>';
+      try {
+        const query = `empId=${encodeURIComponent(empId)}&deviceId=${encodeURIComponent(DEV)}`;
+        const response = await fetch(`/api/schedule-preference?${query}`, { cache: 'no-store' });
+        const res = await response.json();
+        if (!response.ok || !res.ok) throw new Error(res.error || 'Không thể tải lịch đăng ký.');
+        currentAvailData = {};
+        if (Array.isArray(res.preferences)) {
+          res.preferences.forEach(p => { currentAvailData[p.date] = p; });
+        }
+      } catch (e) {
+        currentAvailData = {};
+        $('availDaysList').innerHTML = `<div style="text-align:center;padding:20px;color:#f43f5e;font-size:12px;">${escapeText(e.message || 'Không thể tải lịch đăng ký.')}</div>`;
+        return;
+      }
+      renderAvailDaysList();
+    }
+
+    function closeAvailabilityModal() {
+      $('availModal').style.display = 'none';
+    }
+
+    function renderAvailDaysList() {
+      const days = getUpcoming14Days();
+      $('availDaysList').innerHTML = days.map(d => {
+        const p = currentAvailData[d.dateStr] || { status: 'AVAILABLE', shiftPreference: 'ALL', note: '' };
+        const isOff = p.status === 'OFF';
+        return `
+          <div style="background:rgba(255,255,255,0.05);border:1px solid ${isOff ? 'rgba(244,63,94,0.4)' : 'rgba(16,185,129,0.3)'};border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;font-size:12px;color:${d.isWeekend ? '#fbbf24' : '#e2e8f0'};">${d.label} · ${d.shortDate}</span>
+              <div style="display:inline-flex;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.15);">
+                <button type="button" onclick="toggleDayAvail('${d.dateStr}', 'AVAILABLE')" style="padding:4px 8px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:${!isOff ? '#10b981' : 'transparent'};color:${!isOff ? '#fff' : '#94a3b8'};">Làm việc</button>
+                <button type="button" onclick="toggleDayAvail('${d.dateStr}', 'OFF')" style="padding:4px 8px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:${isOff ? '#f43f5e' : 'transparent'};color:${isOff ? '#fff' : '#94a3b8'};">Nghỉ OFF</button>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              ${!isOff ? `
+                <select id="availShift_${d.dateStr}" style="height:34px;font-size:11px;padding:0 8px;border-radius:8px;background:rgba(11,23,39,0.8);border:1px solid rgba(255,255,255,0.1);color:#fff;">
+                  ${SHIFT_OPTIONS.map(s => `<option value="${s.id}" ${p.shiftPreference === s.id ? 'selected' : ''}>${s.name}</option>`).join('')}
+                </select>
+                <input type="text" id="availNote_${d.dateStr}" value="${escapeAttr(p.note || '')}" placeholder="Ghi chú ca rảnh (nếu có)..." style="height:32px;font-size:11px;padding:0 8px;border-radius:8px;background:rgba(11,23,39,0.8);border:1px solid rgba(255,255,255,0.1);color:#fff;" />
+              ` : `
+                <input type="text" id="availNote_${d.dateStr}" value="${escapeAttr(p.note || '')}" placeholder="Lý do xin nghỉ OFF (bận học, việc bận...)" style="height:32px;font-size:11px;padding:0 8px;border-radius:8px;background:rgba(11,23,39,0.8);border:1px solid rgba(244,63,94,0.3);color:#fda4af;" />
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleDayAvail(dateStr, status) {
+      if (!currentAvailData[dateStr]) currentAvailData[dateStr] = { status: 'AVAILABLE', shiftPreference: 'ALL', note: '' };
+      const noteEl = $('availNote_' + dateStr);
+      if (noteEl) currentAvailData[dateStr].note = noteEl.value;
+      const shiftEl = $('availShift_' + dateStr);
+      if (shiftEl) currentAvailData[dateStr].shiftPreference = shiftEl.value;
+      currentAvailData[dateStr].status = status;
+      renderAvailDaysList();
+    }
+
+    function setAllAvail(status) {
+      const days = getUpcoming14Days();
+      days.forEach(d => {
+        if (!currentAvailData[d.dateStr]) currentAvailData[d.dateStr] = { status, shiftPreference: 'ALL', note: '' };
+        else currentAvailData[d.dateStr].status = status;
+      });
+      renderAvailDaysList();
+    }
+
+    async function saveAvailability() {
+      const empId = $('emp') ? $('emp').value : '';
+      if (!empId) return toast('Vui lòng chọn nhân viên.', 'er');
+      const days = getUpcoming14Days();
+      const preferences = days.map(d => {
+        const noteEl = $('availNote_' + d.dateStr);
+        const shiftEl = $('availShift_' + d.dateStr);
+        const cur = currentAvailData[d.dateStr] || { status: 'AVAILABLE', shiftPreference: 'ALL' };
+        return {
+          date: d.dateStr,
+          status: cur.status || 'AVAILABLE',
+          shiftPreference: shiftEl ? shiftEl.value : (cur.shiftPreference || 'ALL'),
+          note: noteEl ? noteEl.value.trim() : (cur.note || '')
+        };
+      });
+      const btn = $('btnSaveAvail');
+      if (btn) btn.disabled = true;
+      try {
+        const res = await (await fetch('/api/schedule-preference', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ empId, deviceId: DEV, preferences })
+        })).json();
+        if (res && res.ok) {
+          toast('✔ Đã lưu đăng ký lịch 2 tuần tới!', 'ok');
+          closeAvailabilityModal();
+        } else {
+          toast(res.error || 'Lỗi khi gửi đăng ký.', 'er');
+        }
+      } catch (e) {
+        toast('Mất kết nối máy chủ.', 'er');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+    async function waitResult(id) {
+      for (let i = 0; i < 45; i++) { await new Promise(r => setTimeout(r, 2000)); try { const s = await (await fetch('/api/status?id=' + id)).json(); if (s.status === 'DONE' || s.status === 'REJECTED') return s; } catch (e) {} }
+      return null;
+    }
+    async function submit(act) {
+      if (!photoData || !extractedDescriptor) return toast('Vui lòng chụp ảnh khuôn mặt trước.', 'er');
+      $('bIn').disabled = $('bOut').disabled = true; toast('Dữ liệu đang gửi...', 'wt');
+      try {
+        const res = await (await fetch('/api/checkin', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ empId: $('emp').value, branchId: $('branch').value, action: act, photo: photoData, descriptor: extractedDescriptor, descriptors: curFaceStatus === 'NONE' ? samples : undefined, deviceId: DEV })
+        })).json();
+
+        if (!res.ok) { toast(res.error || 'Lỗi xử lý.', 'er'); return; }
+        if (res.status === 'DONE') { toast('✔ ' + res.msg, 'ok'); if (navigator.vibrate) navigator.vibrate([70, 70, 70]); }
+        else if (res.status === 'ENROLL') { toast('📨 ' + res.msg, 'wt'); }
+        else { toast('✖ ' + res.msg, 'er'); if (navigator.vibrate) navigator.vibrate(300); }
+        samples = []; photoData = ''; extractedDescriptor = null; $('prev').style.display = 'none'; $('overlay').style.display = 'none'; $('guide').style.display = 'block'; $('scanBox').classList.remove('active');
+        loadData();
+      } catch (e) { toast('Mất kết nối máy chủ WiFi.', 'er'); }
+      finally { $('bIn').disabled = $('bOut').disabled = false; }
+    }
+  </script>
+</body>
+</html>

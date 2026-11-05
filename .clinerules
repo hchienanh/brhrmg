@@ -1,0 +1,15 @@
+# Cline Rules for Node.js Project
+
+## 1. Token & Context Economy
+- **Strictly Prohibited:** NEVER read, scan, or index `node_modules/`, `.git/`, logs, build outputs, or binary assets.
+- **Scoping:** Restrict file reading and modifications exclusively to the `src/` directory and root configuration files (`package.json`, `server.js`) unless explicitly instructed.
+- **No Full-File Rewrites:** Always use precise Search/Replace blocks (Diff format) for code updates. Never output an entire file unless the file is under 30 lines.
+
+## 2. Code Modification & Safety Standards
+- **API Contracts:** Preserve existing function signatures, middleware wrappers, and JSON response structures to prevent breaking frontend integration.
+- **Error Handling:** Enforce robust `try/catch` blocks for all asynchronous operations (`async/await`) in Controllers and Services.
+- **Environment & Encoding:** Maintain strict UTF-8 encoding compatibility to prevent Vietnamese character corruption on Windows systems. Ensure line endings conform to existing file standards.
+
+## 3. Execution & Validation Rules
+- **No Side Effects:** Do not modify helper files, database models, or routes outside the requested task scope.
+- **Self-Verification:** After applying code patches, verify syntax validity and ensure no unclosed brackets or syntax errors are introduced.
