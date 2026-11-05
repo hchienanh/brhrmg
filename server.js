@@ -13,6 +13,7 @@ const DB_FILE = path.join(__dirname, 'data.json');
 const HRM_DB_FILE = path.join(__dirname, 'hrm.json');
 const PHOTOS_DIR = path.join(__dirname, 'photos');
 const MODELS_DIR = path.join(__dirname, 'models');
+const INDEX_HTML_FILE = path.join(__dirname, 'index.html');
 const MOBILE_HTML_FILE = path.join(__dirname, 'mobile.html');
 const HRM_HTML_FILE = path.join(__dirname, 'BRhrmG.html');
 
@@ -406,7 +407,11 @@ const handleRequest = async (req, res) => {
       return 'GUEST';
     };
 
-    if (url.pathname === '/' || url.pathname === '/quanli' || url.pathname === '/quanli/' || url.pathname === '/hrm' || url.pathname === '/hrm/') {
+    if (url.pathname === '/') {
+      if (!fs.existsSync(INDEX_HTML_FILE)) return send(res, 404, 'Không tìm thấy file index.html', 'text/plain');
+      return send(res, 200, fs.readFileSync(INDEX_HTML_FILE, 'utf8'), 'text/html');
+    }
+    if (url.pathname === '/quanli' || url.pathname === '/quanli/' || url.pathname === '/hrm' || url.pathname === '/hrm/') {
       if (!fs.existsSync(HRM_HTML_FILE)) return send(res, 404, 'Không tìm thấy file BRhrmG.html', 'text/plain');
       return send(res, 200, fs.readFileSync(HRM_HTML_FILE, 'utf8'), 'text/html');
     }

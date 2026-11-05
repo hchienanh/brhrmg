@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f2742">
+  <title>Bonjour Resto' · Chọn chức năng</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #0f2742;
+      background: #f3f6fa;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+      background: radial-gradient(ellipse at 50% 0, #dceafa 0, #f3f6fa 58%);
+    }
+    main { width: min(100%, 760px); }
+    .brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 36px; }
+    .logo {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #2563eb, #0f2742);
+      color: #fff;
+      box-shadow: 0 8px 20px #0f274233;
+    }
+    .brand-name { margin: 0; font-size: clamp(18px, 4vw, 22px); font-weight: 800; letter-spacing: -.03em; }
+    .brand-subtitle { margin: 3px 0 0; color: #64748b; font-size: 13px; }
+    .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .choice {
+      display: flex;
+      min-height: 220px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px;
+      border: 1px solid #dbe4ef;
+      border-radius: 24px;
+      background: #fff;
+      color: inherit;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 10px 30px #0f27420d;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .choice:hover, .choice:focus-visible {
+      transform: translateY(-3px);
+      border-color: #93b4e3;
+      box-shadow: 0 16px 36px #0f27421a;
+      outline: none;
+    }
+    .choice-icon { display: grid; width: 76px; height: 76px; place-items: center; border-radius: 22px; }
+    .choice-icon.attendance { background: #e8f7f1; color: #087c5a; }
+    .choice-icon.management { background: #eaf0fb; color: #1e3a8a; }
+    .choice-title { margin: 0; font-size: 20px; font-weight: 800; }
+    .choice-description { margin: -8px 0 0; color: #64748b; font-size: 13px; line-height: 1.5; }
+    @media (max-width: 520px) {
+      body { padding-inline: 16px; }
+      .brand { justify-content: flex-start; margin: 0 4px 24px; }
+      .choices { gap: 12px; }
+      .choice { min-height: 178px; gap: 12px; padding: 18px 12px; border-radius: 20px; }
+      .choice-icon { width: 62px; height: 62px; border-radius: 18px; }
+      .choice-icon svg { width: 30px; height: 30px; }
+      .choice-title { font-size: 16px; }
+      .choice-description { font-size: 12px; }
+    }
+    @media (max-width: 360px) {
+      .choices { grid-template-columns: minmax(0, 1fr); }
+      .choice { min-height: 148px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="13" stroke="currentColor" stroke-opacity=".4" stroke-width="2"/>
+          <path d="M14.5 11h6.2a4.5 4.5 0 0 1 0 9h-6.2v-9Zm0 9h7a4.5 4.5 0 0 1 0 9h-7v-9Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="brand-name">Bonjour Resto'</h1>
+        <p class="brand-subtitle">Vui lòng chọn chức năng</p>
+      </div>
+    </header>
+    <nav class="choices" aria-label="Chức năng">
+      <a class="choice" href="/chamcong">
+        <span class="choice-icon attendance" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M6.5 19a5.5 5.5 0 0 1 11 0"/>
+          </svg>
+        </span>
+        <span class="choice-title">Chấm công</span>
+        <span class="choice-description">Vào ca, ra ca và tra cứu thông tin cá nhân</span>
+      </a>
+      <a class="choice" href="/quanli">
+        <span class="choice-icon management" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="10" width="16" height="11" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/>
+          </svg>
+        </span>
+        <span class="choice-title">Quản lý</span>
+        <span class="choice-description">Đăng nhập dành cho Quản lý và Admin</span>
+      </a>
+    </nav>
+  </main>
+</body>
+</html>

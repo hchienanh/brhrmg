@@ -2392,6 +2392,29 @@ var qrcode = function() {
 }));
 </script>
 <body class="min-h-screen flex flex-col pb-20 md:pb-0">
+<script>if (['/quanli', '/quanli/', '/hrm', '/hrm/'].includes(location.pathname)) document.body.classList.add('management-entry');</script>
+<style>
+  body.management-entry > :not(#modalAdminPin):not(#toastContainer):not(script):not(style) { display: none !important; }
+  body.management-entry #modalAdminPin { display: flex !important; visibility: visible; background: rgba(15, 39, 66, .96); z-index: 100; }
+  body.management-entry #modalAdminPin > div { visibility: visible; }
+  body.management-entry #toastContainer { display: block !important; visibility: visible; z-index: 110; }
+  body { max-width: 100%; overflow-x: hidden; }
+  @media (max-width: 767px) {
+    header > div { min-height: 4rem; height: auto; padding-block: .5rem; }
+    header h1 { font-size: clamp(12px, 3.8vw, 16px); }
+    header #btnToggleMode { max-width: 45vw; padding-inline: .5rem; }
+    header #modeStatusText { max-width: 27vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    main { min-width: 0; }
+    main .grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
+    main .flex.justify-end { flex-wrap: wrap; }
+    main button { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+    nav.md\:hidden { justify-content: flex-start; gap: .25rem; overflow-x: auto; overscroll-behavior-x: contain; padding-inline: .5rem; padding-bottom: max(.375rem, env(safe-area-inset-bottom)); }
+    nav.md\:hidden > button { flex: 0 0 auto; min-width: 3.25rem; }
+    .overflow-x-auto { max-width: 100%; overscroll-behavior-x: contain; }
+    .overflow-x-auto table { min-width: max-content; }
+    #modalAdminPin > div { max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 1.25rem; }
+  }
+</style>
 <header class="bg-[#0f2742] text-[#f8fafc] shadow-md sticky top-0 z-30 border-b border-[#1e3a5f]">
   <div class="w-full px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
     <!-- Logo & Version -->
@@ -3141,13 +3164,13 @@ var qrcode = function() {
     <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-[#e2e8f0] space-y-4">
       <div class="flex items-center justify-between">
         <h3 class="font-bold text-base text-[#1e3a5f] flex items-center gap-2"><i data-lucide="key-round" class="w-5 h-5 text-amber-600"></i> Đăng nhập quản lý</h3>
-        <button onclick="closeAdminPinModal()" class="text-slate-400 hover:text-slate-600">✕</button>
+        <button onclick="closeAdminPinModal()" aria-label="Đóng đăng nhập" class="text-slate-400 hover:text-slate-600">✕</button>
       </div>
-      <p class="text-xs text-slate-500">Nhập mật mã quản trị riêng của Admin hoặc Quản lý.</p>
+      <p id="adminPinModalMessage" class="text-xs text-slate-500">Nhập mật mã quản trị riêng của Admin hoặc Quản lý.</p>
       <!-- Tìm dòng thẻ input này và thay bằng: -->
-<input type="password" id="adminPinModalInput" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter') verifyAdminPinUnlock()" class="w-full px-4 py-3 text-center text-lg font-bold rounded-xl border-2 border-[#cbd5e1] focus:border-[#1e3a5f] outline-none text-[#0f2742]" />
+<input type="password" id="adminPinModalInput" inputmode="numeric" autocomplete="current-password" placeholder="Nhập mật khẩu quản trị..." onkeydown="if(event.key==='Enter') verifyAdminPinUnlock()" class="w-full px-4 py-3 text-center text-lg font-bold rounded-xl border-2 border-[#cbd5e1] focus:border-[#1e3a5f] outline-none text-[#0f2742]" />
       <div class="flex justify-end gap-2">
-        <button onclick="closeAdminPinModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">Hủy</button>
+        <button id="adminPinCancelBtn" onclick="closeAdminPinModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">Hủy</button>
         <button onclick="verifyAdminPinUnlock()" class="px-5 py-2 rounded-xl bg-[#0f2742] text-white text-xs font-bold">Xác Nhận</button>
       </div>
     </div>
@@ -3666,7 +3689,8 @@ var qrcode = function() {
     ];
 
     let db = null;
-    let isAdminMode = true;
+    let isAdminMode = false;
+    let requireManagementLogin = ['/quanli', '/quanli/', '/hrm', '/hrm/'].includes(window.location.pathname);
     let currentTab = 'kiosk';
     let currentWeekMondayStr = '';
     let cameraStream = null;
@@ -5056,18 +5080,35 @@ var qrcode = function() {
       if (t === 'history') { populateHistoryFilters(); renderHistoryAndAwolSection(); }
       try { lucide.createIcons(); } catch (e) { }
     }
-    function openAdminPin() { $('adminPinModalInput').value = ''; openM('modalAdminPin'); setTimeout(() => $('adminPinModalInput').focus(), 50); }
-    function closeAdminPinModal() { closeM('modalAdminPin'); pendingTab = null; }
-    function handleModeToggleClick() { if (isAdminMode) setAdminMode(false); else openAdminPin(); }
+    function openAdminPin() {
+      $('adminPinModalInput').value = '';
+      $('adminPinCancelBtn').textContent = requireManagementLogin ? 'Trang chủ' : 'Hủy';
+      $('adminPinModalMessage').textContent = requireManagementLogin
+        ? 'Nhập mật khẩu Admin hoặc Quản lý đã được cấp để tiếp tục.'
+        : 'Nhập mật mã quản trị riêng của Admin hoặc Quản lý.';
+      openM('modalAdminPin');
+      setTimeout(() => $('adminPinModalInput').focus(), 50);
+    }
+    function closeAdminPinModal() {
+      if (requireManagementLogin && !isAdminMode) { window.location.replace('/'); return; }
+      closeM('modalAdminPin'); pendingTab = null;
+    }
+    function handleModeToggleClick() {
+      if (!isAdminMode) return openAdminPin();
+      setAdminMode(false);
+      if (['/quanli', '/quanli/', '/hrm', '/hrm/'].includes(window.location.pathname)) window.location.replace('/');
+    }
     function verifyAdminPinUnlock() {
       if (!pinGuard('admin')) return;
       const pin = $('adminPinModalInput').value, R = ROL(), emp = id => db.employees.find(e => e.id === id);
-      const ok = (id, pass) => pin && emp(id) && (pass ? pin === pass : pin === emp(id).pin);
+      const ok = (id, pass) => pin && emp(id) && (pass ? pin === pass : !requireManagementLogin && pin === emp(id).pin);
       let role = '', name = '', legacy = false;
       if (R.adminEmpId && ok(R.adminEmpId, R.adminPass)) { role = 'ADMIN'; name = emp(R.adminEmpId).name; legacy = !R.adminPass; }
       else if (R.managerEmpId && ok(R.managerEmpId, R.managerPass)) { role = 'MANAGER'; name = emp(R.managerEmpId).name; legacy = !R.managerPass; }
-      else if (!R.adminEmpId && pin === String(db.rules.adminPin)) { role = 'ADMIN'; name = 'Admin dự phòng'; }
+      else if (!requireManagementLogin && !R.adminEmpId && pin === String(db.rules.adminPin)) { role = 'ADMIN'; name = 'Admin dự phòng'; }
       if (!role) { pinFail('admin'); showToast('Sai mật mã hoặc chưa được phân quyền.', 'error'); return; }
+      requireManagementLogin = false;
+      document.body.classList.remove('management-entry');
       pinOk('admin'); const t = pendingTab; closeM('modalAdminPin'); pendingTab = null; userRole = role; roleName = name; setAdminMode(true);
       if (!R.adminEmpId) showToast('Chưa phân quyền: vào Quy chế → Phân quyền để chọn Admin và Quản lý.', 'warning');
       else if (legacy) showToast('Bạn đang đăng nhập bằng PIN chấm công. Hãy đặt mật mã quản trị riêng trong Quy chế → Phân quyền.', 'warning');
@@ -5075,7 +5116,11 @@ var qrcode = function() {
     }
     function setAdminMode(on) {
       isAdminMode = on; clearTimeout(adminTimer);
-      if (on) adminTimer = setTimeout(() => { setAdminMode(false); showToast('Tự khóa Admin sau 10 phút.', 'info'); }, 600000);
+      if (on) adminTimer = setTimeout(() => {
+        setAdminMode(false);
+        showToast('Tự khóa Admin sau 10 phút.', 'info');
+        if (['/quanli', '/quanli/', '/hrm', '/hrm/'].includes(window.location.pathname)) window.location.replace('/');
+      }, 600000);
       if (!on) { userRole = 'NONE'; roleName = ''; }
       $('modeStatusText').textContent = on ? (userRole === 'ADMIN' ? 'Admin' : 'Quản lý') : 'Chế độ Kiosk';
       document.querySelectorAll('.admin-only-tab').forEach(b => b.classList.toggle('hidden', !on || (/rules/.test(b.id || '') && userRole !== 'ADMIN')));
@@ -6542,6 +6587,7 @@ var qrcode = function() {
     document.addEventListener('DOMContentLoaded', () => {
       loadDB(); currentWeekMondayStr = getMondayOfDateStr(getLocalDateStr());
       updateClock(); setInterval(updateClock, 1000); switchTab('kiosk'); renderAll(true);
+      if (requireManagementLogin) openAdminPin();
       updateServerVersion();
       startSharedHrmSync();
       hrmSyncPollTimer = setInterval(pollSharedHrmDatabase, 15000);
