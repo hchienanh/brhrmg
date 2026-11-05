@@ -20,9 +20,14 @@ jobs:
     - name: Deploy to Google Cloud VPS
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          set -e
           cd /var/www/brhrmg
-          git pull origin main
+          git pull --ff-only origin main
+          echo "Deploying commit $(git rev-parse --short HEAD)"
           npm install --production
-          pm2 reload brhrmg || pm2 start server.js --name "brhrmg"
+          if pm2 describe brhrmg >/dev/null 2>&1; then pm2 delete brhrmg; fi
+          pm2 start /var/www/brhrmg/server.js --name "brhrmg" --cwd /var/www/brhrmg
+          pm2 save
+          node -e 'const fs = require("fs"); const port = JSON.parse(fs.readFileSync("config.json", "utf8")).port; fetch(`http://127.0.0.1:${port}/quanli`).then(async response => { const type = response.headers.get("content-type") || ""; const body = await response.text(); if (!response.ok || !type.includes("text/html") || !body.includes("Đồng bộ dữ liệu HRM qua VPS")) { console.error(`HRM route check failed: HTTP ${response.status}, content-type ${type}`); process.exit(1); } console.log("HRM /quanli route is serving the deployed page."); }).catch(error => { console.error("HRM route check failed:", error); process.exit(1); });'
           echo "Deployment successful!"
         EOF
