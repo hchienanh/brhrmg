@@ -1,12 +1,4 @@
-.env
-.env.*
-!.env.example
-config.json
-data.json
-data.json.bak
-data.json.corrupt-*
-photos/
 node_modules/
-*.tmp
+.env
+npm-debug.log*
 *.log
-server.js.old

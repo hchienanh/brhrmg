@@ -1,0 +1,67 @@
+{
+  "port": 3000,
+  "adminToken": "7c75172f85596f581a5d3051",
+  "managerToken": "mgr_7a13d9914ccbd954",
+  "maxPhotoKB": 800,
+  "retentionDays": 365,
+  "allowedPrefixes": [
+    "192.168.",
+    "10.",
+    "172.16.",
+    "127.0.0.1",
+    "::1"
+  ],
+  "faceThreshold": 0.48,
+  "policy": {
+    "gracePeriodInMinutes": 5,
+    "gracePeriodOutMinutes": 5,
+    "earlyInCutoff": true,
+    "lateOutCutoff": true,
+    "roundingMinutes": 15
+  },
+  "shifts": [
+    {
+      "id": "CA_SANG",
+      "name": "Ca Sáng",
+      "startTime": "08:00",
+      "endTime": "14:00",
+      "standardHours": 6
+    },
+    {
+      "id": "CA_TOI",
+      "name": "Ca Tối",
+      "startTime": "14:00",
+      "endTime": "22:00",
+      "standardHours": 8
+    },
+    {
+      "id": "CA_GAY",
+      "name": "Ca Gãy",
+      "startTime": "09:30",
+      "endTime": "21:30",
+      "breakStart": "14:00",
+      "breakEnd": "16:30",
+      "standardHours": 9.5
+    }
+  ],
+  "branches": [
+    {
+      "id": "CN_Q1",
+      "name": "Chi nhánh NHT",
+      "address": "6/2 Nguyễn Huy Tưởng phường Gia Định TPHCM"
+    },
+    {
+      "id": "CN_Q3",
+      "name": "Chi nhánh NT",
+      "address": "150/35 Nguyễn Trãi phường Bến Thành TPHCM"
+    }
+  ],
+  "requireDeviceForSelfApi": true,
+  "tlsCertFile": "",
+  "tlsKeyFile": "",
+  "requireHttps": false,
+  "allowedOrigins": [],
+  "listenHost": "0.0.0.0",
+  "publicOrigin": "",
+  "trustedProxyAddresses": []
+}

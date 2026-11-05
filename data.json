@@ -1,0 +1,2235 @@
+{
+  "employees": [
+    {
+      "id": "EMP5",
+      "name": "Dương Tấn Phát",
+      "pin": "1111",
+      "department": "Bếp trung tâm",
+      "branchIds": [
+        "CN_Q1"
+      ],
+      "deviceId": "",
+      "avatar": "",
+      "photoRef": "",
+      "faceDescriptor": null,
+      "faceDescriptors": null,
+      "todayShifts": [
+        {
+          "id": "SH_ADMIN",
+          "name": "Ca FC",
+          "start": "08:00",
+          "end": "17:00"
+        }
+      ],
+      "schedDate": "2026-11-03",
+      "faceStatus": "NONE",
+      "pendingFace": null,
+      "monthlyPayEstimate": {
+        "month": "2026-11",
+        "net": 0
+      },
+      "weeklySchedule": {},
+      "lateCount": 0,
+      "overtimeCount": 0,
+      "penaltyCount": 0,
+      "advanceCount": 0
+    },
+    {
+      "id": "EMP2",
+      "name": "Lý Phương Thuý",
+      "pin": "0000",
+      "department": "Bếp trung tâm",
+      "branchIds": [
+        "CN_Q1"
+      ],
+      "deviceId": "",
+      "avatar": "",
+      "photoRef": "",
+      "faceDescriptor": null,
+      "faceDescriptors": null,
+      "todayShifts": [
+        {
+          "id": "SH_ADMIN",
+          "name": "Ca FC",
+          "start": "08:00",
+          "end": "17:00"
+        }
+      ],
+      "schedDate": "2026-11-03",
+      "faceStatus": "NONE",
+      "pendingFace": null,
+      "monthlyPayEstimate": {
+        "month": "2026-11",
+        "net": 0
+      },
+      "weeklySchedule": {},
+      "lateCount": 1,
+      "overtimeCount": 0,
+      "penaltyCount": 1,
+      "advanceCount": 0
+    },
+    {
+      "id": "EMP06",
+      "name": "Huỳnh Chiến Anh",
+      "pin": "2121",
+      "department": "Quản lý",
+      "branchIds": [
+        "CN_Q1",
+        "CN_Q3"
+      ],
+      "deviceId": "2zzwpl9nomumvubu2kr",
+      "avatar": "",
+      "photoRef": "/photos/EMP06_1793249119481_62bc26.jpg",
+      "faceDescriptor": [
+        -0.06613940745592117,
+        0.12450055032968521,
+        0.11784928292036057,
+        0.02438993565738201,
+        -0.04961950331926346,
+        -0.022223399952054024,
+        -0.08287952095270157,
+        -0.12292710691690445,
+        0.12920629978179932,
+        -0.09248943626880646,
+        0.2386496514081955,
+        0.06665333360433578,
+        -0.18798597157001495,
+        -0.11878211051225662,
+        0.06870773434638977,
+        0.16000992059707642,
+        -0.2409113496541977,
+        -0.05136840417981148,
+        -0.044227924197912216,
+        -0.0013121530646458268,
+        0.041644174605607986,
+        -0.012421981431543827,
+        0.11869535595178604,
+        0.0031368941999971867,
+        -0.08154577761888504,
+        -0.3920275866985321,
+        -0.11963534355163574,
+        -0.09281224012374878,
+        0.1091078594326973,
+        -0.041706383228302,
+        -0.08932150900363922,
+        -0.04776841774582863,
+        -0.17839781939983368,
+        -0.04307198524475098,
+        0.010798917151987553,
+        0.0597359724342823,
+        -0.061480019241571426,
+        -0.05329374596476555,
+        0.16029950976371765,
+        -0.012676206417381763,
+        -0.17334304749965668,
+        0.02424076944589615,
+        0.009209010750055313,
+        0.16455231606960297,
+        0.16090576350688934,
+        0.14817984402179718,
+        0.06785202026367188,
+        -0.07845889776945114,
+        0.055820051580667496,
+        -0.1935804784297943,
+        0.05657857656478882,
+        0.10680034756660461,
+        0.06073961406946182,
+        0.09136170148849487,
+        0.035810671746730804,
+        -0.2142729014158249,
+        0.03983863443136215,
+        0.0089524881914258,
+        -0.13428471982479095,
+        0.03121238946914673,
+        0.049481626600027084,
+        -0.07239984720945358,
+        0.026794562116265297,
+        0.057121120393276215,
+        0.29983752965927124,
+        0.09797859191894531,
+        -0.12270219624042511,
+        -0.11063270270824432,
+        0.05362216383218765,
+        -0.11549422889947891,
+        -0.023150093853473663,
+        0.061695776879787445,
+        -0.12467991560697556,
+        -0.15981996059417725,
+        -0.2975896894931793,
+        0.015417545102536678,
+        0.43542519211769104,
+        0.1048826202750206,
+        -0.1759086698293686,
+        -0.03644206002354622,
+        -0.1314331740140915,
+        -0.016633501276373863,
+        0.12096109986305237,
+        0.11812759190797806,
+        -0.06694282591342926,
+        0.010863780044019222,
+        -0.12005451321601868,
+        0.020993709564208984,
+        0.18372108042240143,
+        -0.07029805332422256,
+        -0.038987595587968826,
+        0.21868906915187836,
+        0.01747244969010353,
+        0.14359605312347412,
+        -0.02669774740934372,
+        0.021445900201797485,
+        -0.06222057342529297,
+        0.010510290041565895,
+        -0.09364161640405655,
+        -0.035953037440776825,
+        0.061246637254953384,
+        -0.00788466352969408,
+        0.010407837107777596,
+        0.08487611263990402,
+        -0.17879536747932434,
+        0.10520214587450027,
+        0.04080413654446602,
+        -0.01872974820435047,
+        0.04575241357088089,
+        0.045718058943748474,
+        -0.17823372781276703,
+        -0.07059134542942047,
+        0.10489325225353241,
+        -0.2882057726383209,
+        0.2846889793872833,
+        0.2738175690174103,
+        0.03441259264945984,
+        0.14015313982963562,
+        0.09487546235322952,
+        0.07845498621463776,
+        -0.029577529057860374,
+        -0.04132039472460747,
+        -0.10817747563123703,
+        -0.03603821247816086,
+        0.06847502291202545,
+        -0.025439830496907234,
+        0.09453664720058441,
+        -0.0009455484105274081
+      ],
+      "faceDescriptors": null,
+      "todayShifts": [
+        {
+          "id": "SH_1792658831200",
+          "name": "Ca VP",
+          "start": "08:30",
+          "end": "17:00"
+        }
+      ],
+      "schedDate": "2026-11-03",
+      "faceStatus": "APPROVED",
+      "pendingFace": null,
+      "monthlyPayEstimate": {
+        "month": "2026-11",
+        "net": 446538
+      },
+      "weeklySchedule": {},
+      "lateCount": 2,
+      "overtimeCount": 0,
+      "penaltyCount": 2,
+      "advanceCount": 1
+    },
+    {
+      "id": "EMP07",
+      "name": "Dương Thị Kim Cúc",
+      "pin": "0000",
+      "department": "Bếp trung tâm",
+      "branchIds": [
+        "CN_Q1"
+      ],
+      "deviceId": "",
+      "avatar": "",
+      "photoRef": "",
+      "faceDescriptor": null,
+      "faceDescriptors": null,
+      "todayShifts": [
+        {
+          "id": "SH_ADMIN",
+          "name": "Ca FC",
+          "start": "08:00",
+          "end": "17:00"
+        }
+      ],
+      "schedDate": "2026-11-03",
+      "faceStatus": "NONE",
+      "pendingFace": null,
+      "monthlyPayEstimate": {
+        "month": "2026-11",
+        "net": 0
+      },
+      "weeklySchedule": {},
+      "lateCount": 0,
+      "overtimeCount": 0,
+      "penaltyCount": 0,
+      "advanceCount": 0
+    },
+    {
+      "id": "EMP08",
+      "name": "Vũ Thái",
+      "pin": "0000",
+      "department": "Bếp trung tâm",
+      "branchIds": [
+        "CN_Q1"
+      ],
+      "deviceId": "",
+      "avatar": "",
+      "photoRef": "",
+      "faceDescriptor": null,
+      "faceDescriptors": null,
+      "todayShifts": [
+        {
+          "id": "SH_ADMIN",
+          "name": "Ca FC",
+          "start": "08:00",
+          "end": "17:00"
+        }
+      ],
+      "schedDate": "2026-11-03",
+      "faceStatus": "NONE",
+      "pendingFace": null,
+      "monthlyPayEstimate": {
+        "month": "2026-11",
+        "net": 0
+      },
+      "weeklySchedule": {},
+      "lateCount": 0,
+      "overtimeCount": 0,
+      "penaltyCount": 0,
+      "advanceCount": 0
+    },
+    {
+      "id": "EMP09",
+      "name": "Nguyễn Thanh Cường",
+      "pin": "1234",
+      "department": "Nhà hàng",
+      "branchIds": [
+        "CN_Q3"
+      ],
+      "deviceId": "",
+      "avatar": "",
+      "photoRef": "",
+      "faceDescriptor": null,
+      "faceDescriptors": null,
+      "todayShifts": [],
+      "schedDate": "2026-11-03",
+      "faceStatus": "NONE",
+      "pendingFace": null,
+      "monthlyPayEstimate": {
+        "month": "2026-11",
+        "net": 0
+      },
+      "weeklySchedule": {},
+      "lateCount": 0,
+      "overtimeCount": 0,
+      "penaltyCount": 0,
+      "advanceCount": 0
+    }
+  ],
+  "inbox": [
+    {
+      "id": "a0ae10b5-ca9e-4b1d-aa51-76bf7925a267",
+      "empId": "EMP06",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP06_1793248665482_1e75d1.jpg",
+      "ts": 1793248665493,
+      "ip": "192.168.1.4",
+      "distance": 0,
+      "similarity": 100,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "8e9f64ac-9857-4a77-aad4-38c3c0645936",
+      "empId": "EMP06",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP06_1793248840433_d090b9.jpg",
+      "ts": 1793248840433,
+      "ip": "192.168.1.4",
+      "distance": 0.1414,
+      "similarity": 86,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "db8bd586-6b2c-435e-b0c9-45ae5c8ec491",
+      "empId": "EMP06",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP06_1793248931288_403c22.jpg",
+      "ts": 1793248931292,
+      "ip": "192.168.1.4",
+      "distance": 0.2025,
+      "similarity": 80,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "20e6f7ff-c345-4e94-96af-dbfe0763056e",
+      "empId": "EMP06",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP06_1793249028748_d170eb.jpg",
+      "ts": 1793249028749,
+      "ip": "192.168.1.4",
+      "distance": 0.1655,
+      "similarity": 83,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "22b65e42-afc9-421b-bdbc-3725041ecd7d",
+      "empId": "EMP06",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP06_1793249119481_62bc26.jpg",
+      "ts": 1793249119482,
+      "ip": "192.168.1.4",
+      "distance": 0,
+      "similarity": 100,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "1d852afb-a0a6-4150-b86b-db519c8bf7eb",
+      "empId": "EMP06",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP06_1793250170209_8f033b.jpg",
+      "ts": 1793250170213,
+      "ip": "192.168.1.4",
+      "distance": 0.196,
+      "similarity": 80,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "aa86bcfb-b7f4-4556-95cb-d58fdda4d877",
+      "empId": "EMP5",
+      "action": "in",
+      "shiftId": "CA_SANG",
+      "shiftName": "Ca Sáng",
+      "photo": "/photos/EMP5_1793251595992_19d103.jpg",
+      "ts": 1793251595994,
+      "ip": "192.168.1.4",
+      "distance": 0,
+      "similarity": 100,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Bạn chưa đăng ký khuôn mặt."
+    },
+    {
+      "id": "beb74d97-bffa-433c-967f-6c16f6a682df",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793258242820_7e6c97.jpg",
+      "ts": 1793258242825,
+      "timeStr": "14:17",
+      "ip": "192.168.1.4",
+      "similarity": 81,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Xác nhận VÀO CA thành công lúc 14:17 (81%)"
+    },
+    {
+      "id": "8faf11ee-b651-4218-81fe-4f023d06f8c5",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793258281791_3d4b7e.jpg",
+      "ts": 1793258281791,
+      "timeStr": "14:18",
+      "ip": "192.168.1.4",
+      "similarity": 76,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Xác nhận RA CA thành công lúc 14:18 (76%)"
+    },
+    {
+      "id": "875b8533-c458-4fd2-bc46-a6d8539931d0",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793261752702_2df828.jpg",
+      "ts": 1793261752707,
+      "timeStr": "15:15",
+      "ip": "192.168.1.4",
+      "similarity": 76,
+      "faceVerified": true,
+      "status": "REJECTED",
+      "msg": "Hôm nay bạn không có ca cần chấm công.",
+      "imported": true
+    },
+    {
+      "id": "4c9d487c-7282-49c6-b0f3-d4bcc9808e5e",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793325924640_c84145.jpg",
+      "ts": 1793325924670,
+      "timeStr": "09:05",
+      "ip": "192.168.1.4",
+      "similarity": 80,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "DONE",
+      "msg": "Huỳnh Chiến Anh Vào Ca lúc 09:05",
+      "imported": true
+    },
+    {
+      "id": "04e7824d-d264-4fd5-b8c9-6a7d6a377649",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793328276843_74b786.jpg",
+      "ts": 1793328276846,
+      "timeStr": "09:44",
+      "ip": "192.168.1.4",
+      "similarity": 78,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Không tìm thấy phiên mở!",
+      "imported": true
+    },
+    {
+      "id": "7f6003db-2765-4566-a487-770993b1e883",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793328304102_80c425.jpg",
+      "ts": 1793328304106,
+      "timeStr": "09:45",
+      "ip": "192.168.1.4",
+      "similarity": 79,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Không tìm thấy phiên mở!",
+      "imported": true
+    },
+    {
+      "id": "2c4dc3d8-96b1-4d0b-b23b-204dcd59619d",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793332651159_05533d.jpg",
+      "ts": 1793332651166,
+      "timeStr": "10:57",
+      "ip": "192.168.1.4",
+      "similarity": 77,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Không tìm thấy phiên mở!",
+      "imported": true
+    },
+    {
+      "id": "a3b655d5-82b8-45b2-9008-45ebd353af83",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793332691412_0136a3.jpg",
+      "ts": 1793332691414,
+      "timeStr": "10:58",
+      "ip": "192.168.1.4",
+      "similarity": 80,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Không tìm thấy phiên mở!",
+      "imported": true
+    },
+    {
+      "id": "ba70091d-c4b4-4017-9641-f6141b982bdb",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793335573321_4bb8b6.jpg",
+      "ts": 1793335573336,
+      "timeStr": "11:46",
+      "ip": "192.168.1.4",
+      "similarity": 72,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Hôm nay bạn không có ca cần chấm công.",
+      "imported": true
+    },
+    {
+      "id": "b842db11-17f2-48ac-9215-ea8ec51aeb5e",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793343310615_df1f55.jpg",
+      "ts": 1793343310625,
+      "timeStr": "13:55",
+      "ip": "192.168.1.4",
+      "similarity": 81,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Hôm nay bạn không có ca cần chấm công.",
+      "imported": true
+    },
+    {
+      "id": "9d705905-f5bd-40e1-ac4a-232a0f915d84",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793347557944_ac71df.jpg",
+      "ts": 1793347557958,
+      "timeStr": "15:05",
+      "ip": "192.168.1.4",
+      "similarity": 78,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Không tìm thấy phiên mở!",
+      "imported": true
+    },
+    {
+      "id": "91ef53f6-c807-456d-b8fe-39ca6b51e38a",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793347570936_e3a869.jpg",
+      "ts": 1793347570940,
+      "timeStr": "15:06",
+      "ip": "192.168.1.4",
+      "similarity": 76,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Không tìm thấy phiên mở!",
+      "imported": true
+    },
+    {
+      "id": "d929cb30-0a37-4c69-b55d-62d807fe3b80",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793586024399_c7c0c9.jpg",
+      "ts": 1793586024499,
+      "timeStr": "09:20",
+      "ip": "192.168.1.7",
+      "similarity": 82,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "DONE",
+      "msg": "VÀO CA thành công lúc 09:20 (khớp 82%)",
+      "imported": true
+    },
+    {
+      "id": "07d364ca-207b-4f14-be02-03d9a93c8b1b",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793592590281_162907.jpg",
+      "ts": 1793592590384,
+      "timeStr": "11:09",
+      "ip": "192.168.1.7",
+      "similarity": 76,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "DONE",
+      "msg": "RA CA thành công lúc 11:09 (khớp 76%)",
+      "imported": true,
+      "appRejected": true,
+      "appMsg": "Không tìm thấy phiên mở!",
+      "reviewed": true
+    },
+    {
+      "id": "bc114da0-24b0-44aa-b73a-613657f1d403",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793596199397_51da32.jpg",
+      "ts": 1793596199432,
+      "timeStr": "12:09",
+      "ip": "192.168.1.7",
+      "similarity": 84,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Bạn đã vào ca lúc 09:20, hãy chấm RA CA.",
+      "imported": true
+    },
+    {
+      "id": "ccfdfb67-5d8f-463d-86d4-67ab7f32daf0",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793609139938_4c0f04.jpg",
+      "ts": 1793609139948,
+      "timeStr": "15:45",
+      "ip": "192.168.1.7",
+      "similarity": 80,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Bạn đã vào ca lúc 09:20, hãy chấm RA CA.",
+      "imported": true
+    },
+    {
+      "id": "ca0e19f1-56c0-4418-b101-8a5865f40595",
+      "empId": "EMP06",
+      "action": "out",
+      "photo": "/photos/EMP06_1793609150981_577dc0.jpg",
+      "ts": 1793609150982,
+      "timeStr": "15:45",
+      "ip": "192.168.1.7",
+      "similarity": 82,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "DONE",
+      "msg": "RA CA thành công lúc 15:45 (khớp 82%)",
+      "imported": true,
+      "appRejected": true,
+      "appMsg": "Không tìm thấy phiên mở!",
+      "reviewed": true
+    },
+    {
+      "id": "bb00cd10-69fe-48b0-8bf1-e14d09d4f3d0",
+      "empId": "EMP06",
+      "action": "in",
+      "photo": "/photos/EMP06_1793609763594_7dc1e3.jpg",
+      "ts": 1793609763604,
+      "timeStr": "15:56",
+      "ip": "192.168.1.7",
+      "similarity": 79,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Bạn đã vào ca lúc 09:20, hãy chấm RA CA.",
+      "imported": true
+    },
+    {
+      "id": "aa4c172c-f8d1-4104-88f7-ecdb62012df8",
+      "empId": "EMP06",
+      "action": "in",
+      "branchId": "CN_Q1",
+      "photo": "/photos/EMP06_1793683068645_67a9ed.jpg",
+      "ts": 1793683068649,
+      "timeStr": "12:17",
+      "ip": "192.168.1.4",
+      "similarity": 77,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "DONE",
+      "msg": "VÀO CA thành công lúc 12:17 (khớp 77%)",
+      "imported": true
+    },
+    {
+      "id": "d12d54ee-8480-45cb-934f-f30565a923b5",
+      "empId": "EMP06",
+      "action": "out",
+      "branchId": "CN_Q1",
+      "photo": "/photos/EMP06_1793688480217_9e5e46.jpg",
+      "ts": 1793688480221,
+      "timeStr": "13:48",
+      "ip": "192.168.1.4",
+      "similarity": 76,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "DONE",
+      "msg": "RA CA thành công lúc 13:48 (khớp 76%)",
+      "imported": true,
+      "appRejected": true,
+      "appMsg": "Không tìm thấy phiên mở!",
+      "reviewed": true
+    },
+    {
+      "id": "628b2b37-235a-4cb8-88bd-15f42c92fb20",
+      "empId": "EMP06",
+      "action": "in",
+      "branchId": "CN_Q1",
+      "photo": "/photos/EMP06_1793688921143_805bd0.jpg",
+      "ts": 1793688921146,
+      "timeStr": "13:55",
+      "ip": "192.168.1.4",
+      "similarity": 80,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Bạn đã vào ca lúc 12:17, hãy chấm RA CA.",
+      "imported": true
+    },
+    {
+      "id": "91783993-159d-4fa5-bed4-d5c347fb67f0",
+      "empId": "EMP06",
+      "action": "in",
+      "branchId": "CN_Q1",
+      "photo": "/photos/EMP06_1793688935857_f74c6f.jpg",
+      "ts": 1793688935859,
+      "timeStr": "13:55",
+      "ip": "192.168.1.4",
+      "similarity": 79,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Bạn đã vào ca lúc 12:17, hãy chấm RA CA.",
+      "imported": true
+    },
+    {
+      "id": "9528d1bb-87cf-4f3e-bda6-04bf69926640",
+      "empId": "EMP06",
+      "action": "in",
+      "branchId": "CN_Q1",
+      "photo": "/photos/EMP06_1793689188772_fe80b4.jpg",
+      "ts": 1793689188773,
+      "timeStr": "13:59",
+      "ip": "192.168.1.4",
+      "similarity": 80,
+      "faceVerified": true,
+      "faceFail": false,
+      "status": "REJECTED",
+      "msg": "Bạn đã vào ca lúc 12:17, hãy chấm RA CA.",
+      "imported": true
+    }
+  ],
+  "requests": [
+    {
+      "id": "f3147ace-bdd1-4af4-9f43-efbe69e8a42a",
+      "empId": "EMP06",
+      "date": "2026-10-29",
+      "timeIn": "14:05",
+      "timeOut": "17:00",
+      "reason": "Hu xe",
+      "ts": 1793326041865,
+      "status": "REJECTED",
+      "msg": "Quản lý đã từ chối yêu cầu."
+    }
+  ],
+  "photoHashes": {
+    "2492c4d86f446eb19dd9d95aebd62951f289f555420c795dbba1154f5a752ca1": 1793609139938,
+    "d5de9ff3105e2bfeff9d970c2ff537f4e6ade11093f215696f74b394fc0917fc": 1793609150981,
+    "35a3263bbc7b82867bb71d9713b193fb58cba574543735dbb61257b60a560874": 1793609763594,
+    "436ced860bb6e6b40f02e0629d6924285aa9f3ca3553b38eeed1b7e682d838ca": 1793683068647,
+    "ee69d06f93c1855ea9d5d977830c54d486125f2dd5c6142d02054f2ad2327c20": 1793688480219,
+    "d198c95667ca97e180007d0f660648fec53237eef710489b1bec297ab877b158": 1793688921144,
+    "be7380dc9cc27e9d4f22c2ff76b85750ef616ddd6a448354b1a9a2cc6efc6afb": 1793688935858,
+    "e799f1a86c79685a7c882dcc05c70044d16a8ce5dc3cb3c17504d8d7b8744d31": 1793689188772
+  },
+  "schedulePreferences": [
+    {
+      "id": "a7a6d0af-6a04-4ae0-b1f7-511788a2bb46",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-03",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "31122184-af51-44a6-b1e5-45269a49396d",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-04",
+      "status": "OFF",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "b3f160d5-72b0-4d47-a83d-b50d4cd87e01",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-05",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "8e3832e5-d4cb-45d0-a325-24fdd9182616",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-06",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "b03ea9a9-0b7b-4432-ac1f-53c3f58b6011",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-07",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "68eaa3e2-8f37-4923-bbb5-278f20a1347a",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-08",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "eb3c8a92-d512-48a7-b738-57eff5536b9e",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-09",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "58f22dfe-9810-4432-86d3-d8ca4353bce3",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-10",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "7cdb3cc1-dc08-4108-b9c5-5662bf270907",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-11",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "95afc626-8da2-4860-a5e2-4fd1169cfac0",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-12",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "04ee81de-6cf2-4e19-a571-ea2880c24203",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-13",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "04e87efd-d7ad-4d84-b651-4a99e26b08ee",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-14",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "50219907-864d-4d67-bd27-4630124f1129",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-15",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "afedf575-69c9-48be-974c-94dc676ca8f0",
+      "empId": "EMP5",
+      "empName": "Dương Tấn Phát",
+      "date": "2026-11-16",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601120479
+    },
+    {
+      "id": "7f354b2d-8cc9-467e-8725-9e3a94e08a36",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-03",
+      "status": "AVAILABLE",
+      "shiftPreference": "SH_ADMIN",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "431258e2-8005-4275-8d22-a0ab27fd8ba8",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-04",
+      "status": "AVAILABLE",
+      "shiftPreference": "SH_ADMIN",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "250f8bc7-0a63-44d5-8125-ea5515a49d84",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-05",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "a3f6caea-76c5-44ee-9e03-2bd72865dcff",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-06",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "7f730a4c-77ea-4a74-8aa3-5a6e0a5f3d1f",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-07",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "c1cd747d-d8b3-44dc-8887-bff06259172b",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-08",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "0a13c24c-8dc7-4a9e-a7f0-4b6ceddd282e",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-09",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "03b0800b-0e45-49e0-b566-b0d675dbae44",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-10",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "f3b4d5dd-7e71-431a-807b-d434eda4fed3",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-11",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "16eba0f5-5572-47e0-917e-d79db4a3e30a",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-12",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "618c1408-fc6b-47cd-b61d-c2e8dffac7f7",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-13",
+      "status": "AVAILABLE",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "1906e5a5-2d74-4cef-b909-62b9f0e509e1",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-14",
+      "status": "OFF",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "999a4b51-46da-4272-8a2d-8b45497ba05a",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-15",
+      "status": "OFF",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    },
+    {
+      "id": "48ec4bb2-583d-4113-aba4-e1424c43402c",
+      "empId": "EMP06",
+      "empName": "Huỳnh Chiến Anh",
+      "date": "2026-11-16",
+      "status": "OFF",
+      "shiftPreference": "ALL",
+      "note": "",
+      "updatedAt": 1793601239571
+    }
+  ],
+  "roster": [
+    {
+      "id": "ROS_1792658775197_0.8119504125430173",
+      "date": "2026-10-21",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792658900830_0.6917266782712193",
+      "date": "2026-10-27",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792658903485_0.32455011964078795",
+      "date": "2026-10-28",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1792658905719_0.6461396456513617",
+      "date": "2026-10-29",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1792658913820_0.1705189911933237",
+      "date": "2026-10-31",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792658998518_0.2191502410095496",
+      "date": "2026-10-22",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1792725121097_0.4444144764853053",
+      "date": "2026-10-23",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1792725126122_0.7904674271742033",
+      "date": "2026-10-24",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792736210749_a55w",
+      "date": "2026-10-26",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1792736217716_zqg2",
+      "date": "2026-10-26",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792736220378_m9e0",
+      "date": "2026-10-27",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792736224668_m4mk",
+      "date": "2026-10-28",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1792736227646_rmee",
+      "date": "2026-10-29",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792736230130_4unu",
+      "date": "2026-10-30",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792736233054_xuvr",
+      "date": "2026-10-31",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792737260375_5c61",
+      "date": "2026-10-19",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1792737263247_777e",
+      "date": "2026-10-20",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1793242165563_vtpc",
+      "date": "2026-10-29",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793325596292_u9aj",
+      "date": "2026-11-16",
+      "empId": "EMP06",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793325596292_dzew",
+      "date": "2026-11-16",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793325899445_6pep",
+      "date": "2026-10-30",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793333394598_5dxo",
+      "date": "2026-10-30",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1793333406047_n8o3",
+      "date": "2026-11-02",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793333416640_c704",
+      "date": "2026-11-03",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793333419262_v90q",
+      "date": "2026-11-04",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793333424079_rp7l",
+      "date": "2026-11-05",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793333427097_nwtb",
+      "date": "2026-11-06",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793584609483_arme",
+      "date": "2026-11-03",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594634509_hr81",
+      "date": "2026-11-07",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594660884_p17l",
+      "date": "2026-11-09",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594679676_r477",
+      "date": "2026-11-10",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "EXCUSED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594690845_o0ub",
+      "date": "2026-11-09",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594841585_2t7z",
+      "date": "2026-11-02",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": "Admin duyệt nghỉ có phép"
+    },
+    {
+      "id": "ROS_1793594844548_etuk",
+      "date": "2026-11-03",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594847525_hx8j",
+      "date": "2026-11-04",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594850330_qpb6",
+      "date": "2026-11-05",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594853848_n5fy",
+      "date": "2026-11-06",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793594858588_e48s",
+      "date": "2026-11-07",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793596534648_8z6a",
+      "date": "2026-11-04",
+      "empId": "EMP06",
+      "shiftId": "SH_1792658831200",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793601079397_l1hk",
+      "date": "2026-11-02",
+      "empId": "EMP06",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679005850_n7kr",
+      "date": "2026-11-04",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "EXCUSED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_3igk",
+      "date": "2026-11-08",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_f856",
+      "date": "2026-11-09",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_jx7h",
+      "date": "2026-11-10",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_cd64",
+      "date": "2026-11-11",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_pbdo",
+      "date": "2026-11-12",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_o04i",
+      "date": "2026-11-13",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_42v3",
+      "date": "2026-11-14",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_itpq",
+      "date": "2026-11-15",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_oyz8",
+      "date": "2026-11-16",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_oeg3",
+      "date": "2026-11-17",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_3nfc",
+      "date": "2026-11-18",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_sz3q",
+      "date": "2026-11-19",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_9vbx",
+      "date": "2026-11-20",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_zuub",
+      "date": "2026-11-21",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_1kfc",
+      "date": "2026-11-22",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_jmii",
+      "date": "2026-11-23",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_llc9",
+      "date": "2026-11-24",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_32sn",
+      "date": "2026-11-25",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_6cfl",
+      "date": "2026-11-26",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_f0yz",
+      "date": "2026-11-27",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_7xcv",
+      "date": "2026-11-28",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679028229_bsi0",
+      "date": "2026-11-29",
+      "empId": "EMP5",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_vf7h",
+      "date": "2026-11-08",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_5dso",
+      "date": "2026-11-10",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_ctii",
+      "date": "2026-11-11",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_2a37",
+      "date": "2026-11-12",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_q2k8",
+      "date": "2026-11-13",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_chm1",
+      "date": "2026-11-14",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_2lxj",
+      "date": "2026-11-15",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_3o53",
+      "date": "2026-11-16",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_b916",
+      "date": "2026-11-17",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_ecwb",
+      "date": "2026-11-18",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_4yfa",
+      "date": "2026-11-19",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_bh8y",
+      "date": "2026-11-20",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_8htp",
+      "date": "2026-11-21",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_g2l2",
+      "date": "2026-11-22",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_ooa9",
+      "date": "2026-11-23",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_77d3",
+      "date": "2026-11-24",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_5g8t",
+      "date": "2026-11-25",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_l0l2",
+      "date": "2026-11-26",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_ojxs",
+      "date": "2026-11-27",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_w5ul",
+      "date": "2026-11-28",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679033997_qn1u",
+      "date": "2026-11-29",
+      "empId": "EMP2",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_upl1",
+      "date": "2026-11-03",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_ht36",
+      "date": "2026-11-05",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_p1fz",
+      "date": "2026-11-06",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_1tdr",
+      "date": "2026-11-07",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_lyor",
+      "date": "2026-11-08",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_u7bt",
+      "date": "2026-11-09",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_xs98",
+      "date": "2026-11-10",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_mwx8",
+      "date": "2026-11-11",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_0vjk",
+      "date": "2026-11-12",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_7qwi",
+      "date": "2026-11-13",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_iv06",
+      "date": "2026-11-14",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_jqw4",
+      "date": "2026-11-15",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_m26x",
+      "date": "2026-11-16",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_x4a2",
+      "date": "2026-11-17",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_arr3",
+      "date": "2026-11-18",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_acrr",
+      "date": "2026-11-19",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_iha9",
+      "date": "2026-11-20",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_bw9t",
+      "date": "2026-11-21",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_06kh",
+      "date": "2026-11-22",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_3zr0",
+      "date": "2026-11-23",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_yw7h",
+      "date": "2026-11-24",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_wuv8",
+      "date": "2026-11-25",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_fwnn",
+      "date": "2026-11-26",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_k9ja",
+      "date": "2026-11-27",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_o5bz",
+      "date": "2026-11-28",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679042914_8b4o",
+      "date": "2026-11-29",
+      "empId": "EMP07",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_qvk7",
+      "date": "2026-11-03",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_g9wx",
+      "date": "2026-11-04",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_f2kp",
+      "date": "2026-11-05",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_0cfr",
+      "date": "2026-11-06",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_fzhx",
+      "date": "2026-11-07",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_abf5",
+      "date": "2026-11-08",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_pyao",
+      "date": "2026-11-09",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_ve7t",
+      "date": "2026-11-10",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_3vd1",
+      "date": "2026-11-11",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_o2q8",
+      "date": "2026-11-12",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_9t8p",
+      "date": "2026-11-13",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_qj8j",
+      "date": "2026-11-14",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_ve7t",
+      "date": "2026-11-15",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_wec3",
+      "date": "2026-11-16",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_2uer",
+      "date": "2026-11-17",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_rqd7",
+      "date": "2026-11-18",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_9ga0",
+      "date": "2026-11-19",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_osaj",
+      "date": "2026-11-20",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_xqxj",
+      "date": "2026-11-21",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_usyk",
+      "date": "2026-11-22",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_h8oe",
+      "date": "2026-11-23",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_4lgh",
+      "date": "2026-11-24",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_5a1f",
+      "date": "2026-11-25",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_dyb9",
+      "date": "2026-11-26",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_hd4u",
+      "date": "2026-11-27",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_moqd",
+      "date": "2026-11-28",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    },
+    {
+      "id": "ROS_1793679062161_e5u0",
+      "date": "2026-11-29",
+      "empId": "EMP08",
+      "shiftId": "SH_ADMIN",
+      "status": "SCHEDULED",
+      "note": ""
+    }
+  ],
+  "branches": [
+    {
+      "id": "CN_Q1",
+      "name": "Chi nhánh NHT",
+      "address": "6/2 Nguyễn Huy Tưởng phường Gia Định TPHCM"
+    },
+    {
+      "id": "CN_Q3",
+      "name": "Chi nhánh NT",
+      "address": "150/35 Nguyễn Trãi phường Bến Thành TPHCM"
+    }
+  ],
+  "advanceRequests": [
+    {
+      "id": "5bf32115-df32-4e41-810b-ad684e025790",
+      "empId": "EMP06",
+      "month": "2026-11",
+      "amount": 200000,
+      "salaryEstimate": 446538,
+      "reason": "Test",
+      "ts": 1793689231039,
+      "status": "APPROVED",
+      "msg": "Yêu cầu ứng lương đã được duyệt.",
+      "imported": true,
+      "decidedAt": 1793689262681
+    },
+    {
+      "id": "b64d42f4-16f4-4a10-874a-75f8eb7edf2e",
+      "empId": "EMP06",
+      "month": "2026-11",
+      "amount": 20000,
+      "salaryEstimate": 446538,
+      "reason": "",
+      "ts": 1793689242097,
+      "status": "REJECTED",
+      "msg": "Quản lý từ chối yêu cầu ứng lương.",
+      "imported": false,
+      "decidedAt": 1793689263865
+    }
+  ]
+}
