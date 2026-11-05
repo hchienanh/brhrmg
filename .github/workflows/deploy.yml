@@ -12,6 +12,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Validate deployment secrets
+      env:
+        VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        VPS_USER: ${{ secrets.VPS_USER }}
+        VPS_HOST: ${{ secrets.VPS_HOST }}
+      run: |
+        missing=()
+        [ -n "$VPS_SSH_KEY" ] || missing+=("VPS_SSH_KEY")
+        [ -n "$VPS_USER" ] || missing+=("VPS_USER")
+        [ -n "$VPS_HOST" ] || missing+=("VPS_HOST")
+        if [ ${#missing[@]} -gt 0 ]; then
+          echo "::error::Missing required GitHub Actions secrets: ${missing[*]}"
+          exit 1
+        fi
+
     - name: Setup SSH Agent
       uses: webfactory/ssh-agent@v0.9.0
       with:
