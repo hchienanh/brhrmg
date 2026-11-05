@@ -5089,6 +5089,17 @@ var qrcode = function() {
       openM('modalAdminPin');
       setTimeout(() => $('adminPinModalInput').focus(), 50);
     }
+    function setManagementLoginSyncState(pending, message) {
+      const input = $('adminPinModalInput');
+      const confirmButton = document.querySelector('#modalAdminPin button[onclick="verifyAdminPinUnlock()"]');
+      const cancelButton = $('adminPinCancelBtn');
+      input.disabled = pending;
+      confirmButton.disabled = pending;
+      cancelButton.disabled = pending;
+      confirmButton.classList.toggle('opacity-50', pending);
+      cancelButton.classList.toggle('opacity-50', pending);
+      $('adminPinModalMessage').textContent = message;
+    }
     function closeAdminPinModal() {
       if (requireManagementLogin && !isAdminMode) { window.location.replace('/'); return; }
       closeM('modalAdminPin'); pendingTab = null;
@@ -6584,12 +6595,30 @@ var qrcode = function() {
       }
       try { lucide.createIcons(); } catch (e) { }
     }
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       loadDB(); currentWeekMondayStr = getMondayOfDateStr(getLocalDateStr());
       updateClock(); setInterval(updateClock, 1000); switchTab('kiosk'); renderAll(true);
-      if (requireManagementLogin) openAdminPin();
       updateServerVersion();
-      startSharedHrmSync();
+      const phone = PH();
+      if (requireManagementLogin) {
+        openAdminPin();
+        if (phone.adminToken && !hrmSyncMeta.paused) {
+          setManagementLoginSyncState(true, 'Đang tải và kiểm tra dữ liệu mới nhất trên VPS. Vui lòng chờ...');
+          await startSharedHrmSync();
+          const syncMessage = hrmSyncStatusState === 'success'
+            ? `Đã kiểm tra VPS. ${hrmSyncStatusMessage}`
+            : `Chưa xác nhận được dữ liệu mới nhất từ VPS. ${hrmSyncStatusMessage} Đăng nhập lúc này sẽ dùng dữ liệu trên thiết bị.`;
+          setManagementLoginSyncState(false, syncMessage);
+        } else {
+          const syncMessage = hrmSyncMeta.paused
+            ? 'Đồng bộ VPS đang tạm ngừng trên thiết bị này. Đăng nhập lúc này sẽ dùng dữ liệu trên thiết bị.'
+            : 'Thiết bị chưa có mã kết nối VPS. Đăng nhập lúc này sẽ dùng dữ liệu trên thiết bị; hãy cấu hình máy chủ để tự đồng bộ.';
+          setManagementLoginSyncState(false, syncMessage);
+          startSharedHrmSync();
+        }
+      } else {
+        startSharedHrmSync();
+      }
       hrmSyncPollTimer = setInterval(pollSharedHrmDatabase, 15000);
       document.addEventListener('visibilitychange', () => {
         if (document.hidden || hrmSyncMeta.paused || !PH().adminToken) return;
