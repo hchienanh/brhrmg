@@ -3111,7 +3111,7 @@ var qrcode = function() {
               <div class="space-y-3 rounded-xl border border-blue-200 bg-blue-50/60 p-4">
                 <div>
                   <div class="font-extrabold text-sm text-blue-950">Đồng bộ dữ liệu HRM qua VPS</div>
-                  <p class="mt-1 text-[11px] leading-relaxed text-blue-900">VPS lưu một bộ dữ liệu HRM dùng chung riêng với data.json chấm công. Lưu cấu hình máy chủ và mã quản trị ở mục nâng cao trước. Trước khi khởi tạo lần đầu, hãy tải file sao lưu JSON ở thẻ bên trên. Chỉ khởi tạo từ PC đang có dữ liệu thật; các thiết bị khác hãy tải bản VPS về. Mọi bản tải về đều sao lưu dữ liệu hiện có trên thiết bị.</p>
+                  <p class="mt-1 text-[11px] leading-relaxed text-blue-900">Mỗi trình duyệt lưu HRM riêng; VPS là bản dùng chung. Sao lưu JSON và chỉ khởi tạo VPS một lần từ thiết bị có dữ liệu thật. Trên mỗi thiết bị, mở trang quản lý /quanli (không phải /chamcong), lưu cùng địa chỉ máy chủ và mã quản trị ở mục nâng cao; dữ liệu VPS sẽ tự tải khi mở trang và các thay đổi sẽ tự đồng bộ lại. Thiết bị cần kết nối mạng; nếu có xung đột, xem trạng thái để xử lý, dữ liệu cục bộ được giữ an toàn.</p>
                 </div>
                 <div id="hrmSyncStatus" class="text-[11px] text-slate-500">Chưa kết nối dữ liệu HRM VPS.</div>
                 <div class="flex flex-wrap gap-2">
@@ -3676,11 +3676,11 @@ var qrcode = function() {
     let hrmSyncMeta = (() => {
       try {
         const value = JSON.parse(localStorage.getItem(HRM_SYNC_META_KEY) || '{}');
-        return { enabled: value.enabled === true, revision: Number.isSafeInteger(value.revision) ? value.revision : 0, dirty: value.dirty === true };
-      } catch (error) { return { enabled: false, revision: 0, dirty: false }; }
+        return { enabled: value.enabled === true, paused: value.paused === true, revision: Number.isSafeInteger(value.revision) ? value.revision : 0, dirty: value.dirty === true };
+      } catch (error) { return { enabled: false, paused: false, revision: 0, dirty: false }; }
     })();
-    let hrmSyncReady = false, hrmSyncBusy = false, hrmSyncApplyingRemote = false, hrmSyncConflict = false;
-    let hrmSyncTimer = null, hrmSyncPollTimer = null, hrmLocalGeneration = 0;
+    let hrmSyncReady = false, hrmSyncBusy = false, hrmSyncConnecting = false, hrmSyncApplyingRemote = false, hrmSyncConflict = false;
+    let hrmSyncTimer = null, hrmSyncReconnectTimer = null, hrmSyncPollTimer = null, hrmLocalGeneration = 0;
     let hrmSyncStatusMessage = 'Chưa kết nối dữ liệu HRM VPS.', hrmSyncStatusState = 'normal';
 
     // --- 1. TIMEZONE-SAFE UTILS ---
@@ -5852,21 +5852,26 @@ var qrcode = function() {
       const phone = PH();
       if (!phone.adminToken) throw new Error('Nhập và lưu mã kết nối quản trị máy chủ trong phần nâng cao trước.');
       const base = (phone.serverUrl || window.location.origin).replace(/\/+$/, '');
-      const response = await fetch(`${base}/api/admin/hrm-db`, {
-        method,
-        cache: 'no-store',
-        headers: { 'x-admin-token': phone.adminToken, ...(body ? { 'Content-Type': 'application/json' } : {}) },
-        body: body ? JSON.stringify(body) : undefined
-      });
-      let result;
-      try { result = await response.json(); } catch (error) { throw new Error(`Máy chủ trả phản hồi không hợp lệ (HTTP ${response.status}).`); }
-      if (!response.ok || !result.ok) {
-        const error = new Error(result.error || `Lỗi máy chủ HTTP ${response.status}.`);
-        error.status = response.status;
-        error.revision = result.revision;
-        throw error;
-      }
-      return result;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      try {
+        const response = await fetch(`${base}/api/admin/hrm-db`, {
+          method,
+          cache: 'no-store',
+          signal: controller.signal,
+          headers: { 'x-admin-token': phone.adminToken, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+          body: body ? JSON.stringify(body) : undefined
+        });
+        let result;
+        try { result = await response.json(); } catch (error) { throw new Error(`Máy chủ trả phản hồi không hợp lệ (HTTP ${response.status}).`); }
+        if (!response.ok || !result.ok) {
+          const error = new Error(result.error || `Lỗi máy chủ HTTP ${response.status}.`);
+          error.status = response.status;
+          error.revision = result.revision;
+          throw error;
+        }
+        return result;
+      } finally { clearTimeout(timeout); }
     }
     function makeSharedHrmSnapshot() {
       const snapshot = JSON.parse(JSON.stringify(db));
@@ -5877,7 +5882,12 @@ var qrcode = function() {
       if (!hrmSyncMeta.enabled || !hrmSyncReady || hrmSyncApplyingRemote || hrmSyncConflict) return;
       clearTimeout(hrmSyncTimer);
       setHrmSyncStatus('Đã lưu trên thiết bị; đang chờ đồng bộ lên VPS…');
-      hrmSyncTimer = setTimeout(() => pushSharedHrmDatabase(false), 900);
+      hrmSyncTimer = setTimeout(() => { hrmSyncTimer = null; pushSharedHrmDatabase(false); }, 900);
+    }
+    function retrySharedHrmPush() {
+      if (!hrmSyncMeta.enabled || !hrmSyncReady || !hrmSyncMeta.dirty || hrmSyncConflict) return;
+      clearTimeout(hrmSyncTimer);
+      hrmSyncTimer = setTimeout(() => { hrmSyncTimer = null; pushSharedHrmDatabase(false); }, 15000);
     }
     async function pushSharedHrmDatabase(replaceRemote = false) {
       if (hrmSyncBusy || !hrmSyncMeta.enabled || !hrmSyncReady) return;
@@ -5902,8 +5912,12 @@ var qrcode = function() {
           setHrmSyncStatus('Có thay đổi trên VPS từ thiết bị khác. Chọn tải dữ liệu VPS về hoặc xác nhận ghi đè bằng bản trên thiết bị này.', 'warning');
         } else {
           setHrmSyncStatus('Chưa đồng bộ được: ' + error.message, 'error');
+          if (!error.status || error.status === 429 || error.status >= 500) retrySharedHrmPush();
         }
-      } finally { hrmSyncBusy = false; }
+      } finally {
+        hrmSyncBusy = false;
+        if (hrmSyncMeta.dirty && hrmSyncMeta.enabled && hrmSyncReady && !hrmSyncConflict && hrmSyncTimer === null) retrySharedHrmPush();
+      }
     }
     function installSharedHrmDatabase(remote) {
       if (!validDb(remote.db)) throw new Error('Dữ liệu HRM trên VPS không hợp lệ; không thay đổi dữ liệu trên thiết bị.');
@@ -5925,7 +5939,7 @@ var qrcode = function() {
       const saved = saveDB(true);
       hrmSyncApplyingRemote = false;
       if (!saved) { db = previous; throw new Error('Không lưu được dữ liệu VPS vào bộ nhớ trình duyệt. Dữ liệu cũ vẫn được giữ.'); }
-      hrmSyncMeta = { enabled: true, revision: remote.revision, dirty: false };
+      hrmSyncMeta = { enabled: true, paused: false, revision: remote.revision, dirty: false };
       hrmSyncReady = true;
       hrmSyncConflict = false;
       persistHrmSyncMeta();
@@ -5948,7 +5962,7 @@ var qrcode = function() {
         if (remote.exists) return setHrmSyncStatus('VPS đã có dữ liệu HRM; không khởi tạo đè. Hãy tải dữ liệu VPS về hoặc xử lý xung đột.', 'warning');
         if (!confirm('Trước khi khởi tạo, hãy tải file sao lưu JSON toàn bộ dữ liệu về máy tính. Chỉ nhấn OK nếu đã có bản sao lưu an toàn.')) return;
         if (!confirm(`Đưa dữ liệu đang mở trên PC lên VPS làm bản HRM dùng chung?\n\n${db.employees.length} nhân sự • ${db.attendance.length} bản ghi công\n\nChỉ tiếp tục nếu đây là PC/trình duyệt có dữ liệu HRM thật, đầy đủ. Không dùng bản demo.`)) return;
-        hrmSyncMeta = { enabled: true, revision: 0, dirty: true };
+        hrmSyncMeta = { enabled: true, paused: false, revision: 0, dirty: true };
         hrmSyncReady = true;
         hrmSyncConflict = false;
         persistHrmSyncMeta();
@@ -5959,13 +5973,16 @@ var qrcode = function() {
       if (!hrmSyncMeta.dirty) return showToast('Thiết bị này không có thay đổi đang chờ đồng bộ.', 'info');
       if (!confirm(`Ghi đè dữ liệu HRM hiện có trên VPS bằng bản trên thiết bị này?\n\n${db.employees.length} nhân sự • ${db.attendance.length} bản ghi công\n\nChỉ xác nhận nếu đã kiểm tra bản này là đúng.`)) return;
       hrmSyncMeta.enabled = true;
+      hrmSyncMeta.paused = false;
       hrmSyncReady = true;
       await pushSharedHrmDatabase(true);
     }
     function pauseSharedHrmSync() {
       if (!confirm('Tạm ngừng đồng bộ trên thiết bị này? Các thay đổi mới sẽ chỉ được lưu cục bộ, không gửi lên VPS.')) return;
       clearTimeout(hrmSyncTimer);
+      clearTimeout(hrmSyncReconnectTimer);
       hrmSyncMeta.enabled = false;
+      hrmSyncMeta.paused = true;
       hrmSyncReady = false;
       persistHrmSyncMeta();
       setHrmSyncStatus('Đã tạm ngừng đồng bộ trên thiết bị này. Dữ liệu VPS không bị thay đổi.', 'warning');
@@ -5991,15 +6008,32 @@ var qrcode = function() {
       } catch (error) { setHrmSyncStatus('Đồng bộ VPS bị gián đoạn: ' + error.message, 'error'); }
     }
     async function startSharedHrmSync() {
-      if (!hrmSyncMeta.enabled || !PH().adminToken) return;
+      if (hrmSyncConnecting) return;
+      clearTimeout(hrmSyncReconnectTimer);
+      hrmSyncReconnectTimer = null;
+      if (!PH().adminToken) {
+        setHrmSyncStatus('Nhập địa chỉ máy chủ và mã quản trị ở mục cấu hình nâng cao để tự đồng bộ.', 'warning');
+        return;
+      }
+      if (hrmSyncMeta.paused) {
+        setHrmSyncStatus('Đồng bộ đã tạm ngừng trên thiết bị này. Tải dữ liệu VPS về để kết nối lại.', 'warning');
+        return;
+      }
+      hrmSyncConnecting = true;
       hrmSyncReady = false;
       try {
         const remote = await sharedHrmRequest();
         if (!remote.exists || !remote.db) {
-          hrmSyncMeta.revision = 0;
           hrmSyncReady = true;
-          persistHrmSyncMeta();
-          setHrmSyncStatus('VPS chưa có dữ liệu HRM dùng chung. Chỉ khởi tạo từ PC có dữ liệu thật.', 'warning');
+          if (hrmSyncMeta.revision > 0) {
+            hrmSyncConflict = true;
+            setHrmSyncStatus('Không tìm thấy dữ liệu HRM VPS đã đồng bộ trước đây. Giữ nguyên dữ liệu thiết bị; cần Admin kiểm tra bản sao lưu.', 'error');
+          } else if (hrmSyncMeta.dirty) {
+            setHrmSyncStatus('Đang khởi tạo dữ liệu HRM lên VPS…');
+            scheduleSharedHrmPush();
+          } else {
+            setHrmSyncStatus('VPS chưa có dữ liệu HRM dùng chung. Chỉ khởi tạo một lần từ thiết bị đang có dữ liệu thật.', 'warning');
+          }
           return;
         }
         if (hrmSyncMeta.dirty && hrmSyncMeta.revision !== remote.revision) {
@@ -6008,7 +6042,7 @@ var qrcode = function() {
           setHrmSyncStatus('Phát hiện thay đổi chưa đồng bộ ở cả thiết bị và VPS. Chọn bản đúng để xử lý xung đột.', 'warning');
           return;
         }
-        if (!hrmSyncMeta.dirty && hrmSyncMeta.revision !== remote.revision) installSharedHrmDatabase(remote);
+        if (!hrmSyncMeta.dirty) installSharedHrmDatabase(remote);
         else {
           hrmSyncReady = true;
           setHrmSyncStatus(`Đã kết nối dữ liệu HRM VPS • phiên bản ${remote.revision}`, 'success');
@@ -6017,6 +6051,11 @@ var qrcode = function() {
       } catch (error) {
         hrmSyncReady = false;
         setHrmSyncStatus('Chưa kết nối được dữ liệu HRM VPS: ' + error.message, 'error');
+        if (!error.status || error.status === 429 || error.status >= 500) {
+          hrmSyncReconnectTimer = setTimeout(() => { hrmSyncReconnectTimer = null; startSharedHrmSync(); }, 15000);
+        }
+      } finally {
+        hrmSyncConnecting = false;
       }
     }
     let phLastEmp = '', phLastBranches = '', phBusy = false;
@@ -6506,6 +6545,14 @@ var qrcode = function() {
       updateServerVersion();
       startSharedHrmSync();
       hrmSyncPollTimer = setInterval(pollSharedHrmDatabase, 15000);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden || hrmSyncMeta.paused || !PH().adminToken) return;
+        if (hrmSyncReady && hrmSyncMeta.enabled) pollSharedHrmDatabase();
+        else startSharedHrmSync();
+      });
+      window.addEventListener('online', () => {
+        if (!hrmSyncMeta.paused && PH().adminToken) startSharedHrmSync();
+      });
       setInterval(() => {
         if (!document.hidden) {
           if (currentTab === 'kiosk') {

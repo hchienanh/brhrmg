@@ -406,7 +406,7 @@ const handleRequest = async (req, res) => {
       return 'GUEST';
     };
 
-    if (url.pathname === '/' || url.pathname === '/hrm' || url.pathname === '/hrm/') {
+    if (url.pathname === '/' || url.pathname === '/quanli' || url.pathname === '/quanli/' || url.pathname === '/hrm' || url.pathname === '/hrm/') {
       if (!fs.existsSync(HRM_HTML_FILE)) return send(res, 404, 'Không tìm thấy file BRhrmG.html', 'text/plain');
       return send(res, 200, fs.readFileSync(HRM_HTML_FILE, 'utf8'), 'text/html');
     }
